@@ -15,4 +15,9 @@ Patches are separated as follows:
 Patches can be applied at any order, if that doesn't work try alphabetically.
 Tested on 7.1.0-rc2 (mainline) and linux-next.
 
-WARNING: As of 2026/06/26 linux-next has broken SM8450/SM8475 PCIe support and broken ADC thermal support, using a mainline version may be preferred instead.
+WARNING: As of 2026/06/26 linux-next has broken:
+- SM8450/SM8475 PCIe support
+- ADC5 thermal support
+- DisplayPort link training failure handling **(causes kernel panic)**
+
+Using a mainline version may be preferred instead.
