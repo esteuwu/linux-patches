@@ -1,0 +1,470 @@
+From 75871b37b6be241ccac62d0890233e90395d8d02 Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Sat, 16 May 2026 15:23:42 -0400
+Subject: [PATCH 02/10] drm/panel: Add Novatek NT37703 DriverIC panel driver
+
+Currently support is implemented only for motorola-bronco Tianma v2 panel which only supports DSC.
+Some details are pending, but it mostly works.
+---
+ drivers/gpu/drm/panel/Kconfig                 |  12 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-novatek-nt37703.c | 412 ++++++++++++++++++
+ 3 files changed, 425 insertions(+)
+ create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt37703.c
+
+diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+index 7450b27622a2..1a0a56cadf1d 100644
+--- a/drivers/gpu/drm/panel/Kconfig
++++ b/drivers/gpu/drm/panel/Kconfig
+@@ -651,6 +651,18 @@ config DRM_PANEL_NOVATEK_NT37700F
+ 	  Say Y here if you want to enable support for Novatek NT37700F DSI
+ 	  panel module. The panel has a resolution of 1080x2160.
+ 
++config DRM_PANEL_NOVATEK_NT37703
++	tristate "Novatek NT37703 DSI panel"
++	depends on OF
++	depends on DRM_MIPI_DSI
++	depends on BACKLIGHT_CLASS_DEVICE
++	select DRM_DISPLAY_DSC_HELPER
++	select DRM_DISPLAY_HELPER
++	help
++	  Say Y here if you want to enable support for panels based on the
++	  Novatek NT37703 DDIC.
++	  To build this driver as a module, say M instead.
++
+ config DRM_PANEL_NOVATEK_NT37801
+ 	tristate "Novatek NT37801/NT37810 AMOLED DSI panel"
+ 	depends on OF
+diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+index c2c5cf817116..405d47afcb2e 100644
+--- a/drivers/gpu/drm/panel/Makefile
++++ b/drivers/gpu/drm/panel/Makefile
+@@ -63,6 +63,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36523) += panel-novatek-nt36523.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672A) += panel-novatek-nt36672a.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) += panel-novatek-nt36672e.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) += panel-novatek-nt37700f.o
++obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37703) += panel-novatek-nt37703.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37801) += panel-novatek-nt37801.o
+ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT39016) += panel-novatek-nt39016.o
+ obj-$(CONFIG_DRM_PANEL_MANTIX_MLAF057WE51) += panel-mantix-mlaf057we51.o
+diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37703.c b/drivers/gpu/drm/panel/panel-novatek-nt37703.c
+new file mode 100644
+index 000000000000..5f3b5c87c56e
+--- /dev/null
++++ b/drivers/gpu/drm/panel/panel-novatek-nt37703.c
+@@ -0,0 +1,412 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Novatek NT37703 DriverIC panels driver
++ *
++ * Multi-panel support based on the Novatek NT36523 panel driver implementation
++ *
++ * Copyright (c) 2026 Esteban Urrutia <esteuwu@proton.me>
++ */
++
++#include <linux/backlight.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/regulator/consumer.h>
++
++#include <video/mipi_display.h>
++
++#include <drm/display/drm_dsc.h>
++#include <drm/display/drm_dsc_helper.h>
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
++#include <drm/drm_panel.h>
++#include <drm/drm_probe_helper.h>
++
++#define NT37703_DCS_SWITCH_PAGE 0xf0
++
++#define nt37703_panel_cmd_test_on(ctx) mipi_dsi_dcs_write_seq_multi((ctx), 0xff, 0xaa, 0x55, 0xa5, 0x80)
++#define nt37703_panel_switch_page(ctx, page) mipi_dsi_dcs_write_seq_multi((ctx), NT37703_DCS_SWITCH_PAGE, 0x55, 0xaa, 0x52, 0x08, (page))
++
++struct panel_info {
++	struct drm_panel panel;
++	struct mipi_dsi_device *dsi;
++	const struct panel_desc *desc;
++	struct drm_dsc_config dsc;
++	struct gpio_desc *reset_gpio;
++	struct regulator_bulk_data *supplies;
++};
++
++struct panel_desc {
++	unsigned int width_mm;
++	unsigned int height_mm;
++
++	unsigned int lanes;
++	unsigned long mode_flags;
++	enum mipi_dsi_pixel_format format;
++
++	const struct drm_display_mode *modes;
++	unsigned int num_modes;
++	int (*init_sequence)(struct panel_info *pinfo);
++
++	const struct drm_dsc_config *dsc_cfg;
++
++	const struct regulator_bulk_data *supplies;
++	unsigned int num_supplies;
++};
++
++static inline struct panel_info *to_panel_info(struct drm_panel *panel)
++{
++	return container_of_const(panel, struct panel_info, panel);
++}
++
++static void nt37703_reset(struct panel_info *pinfo)
++{
++	gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
++	usleep_range(1000, 2000);
++	gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
++	usleep_range(1000, 2000);
++	gpiod_set_value_cansleep(pinfo->reset_gpio, 0);
++	usleep_range(10000, 11000);
++}
++
++static int bronco_tianma_v2_init_sequence(struct panel_info *pinfo)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->dsi };
++
++	nt37703_panel_switch_page(&dsi_ctx, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x06);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb5, 0x29);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x07);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb5, 0x2b, 0x1b, 0x00, 0x32);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x88, 0x01, 0x02, 0x1b, 0x08, 0x77);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x87, 0x20);
++	mipi_dsi_dcs_set_column_address_multi(&dsi_ctx, 0x0000, 1080 - 1);
++	mipi_dsi_dcs_set_page_address_multi(&dsi_ctx, 0x0000, 2400 - 1);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x90, 0x03, 0x03);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, MIPI_DCS_WRITE_CONTROL_DISPLAY, 0x20);
++	nt37703_panel_cmd_test_on(&dsi_ctx);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x15);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf8, 0x01, 0xe1);
++	nt37703_panel_cmd_test_on(&dsi_ctx);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x17);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf4, 0x02);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x81);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x13);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf9, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xff, 0xaa, 0x55, 0xa5, 0x81);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x3c);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xf5, 0x81);
++	mipi_dsi_dcs_set_tear_on_multi(&dsi_ctx, MIPI_DSI_DCS_TEAR_MODE_VBLANK);
++	mipi_dsi_dcs_set_display_brightness_multi(&dsi_ctx, 0x0000);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2f, 0x00);
++	nt37703_panel_switch_page(&dsi_ctx, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x03);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc7, 0x47);
++	nt37703_panel_switch_page(&dsi_ctx, 0x00);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0xc4);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xb2, 0x09, 0x84, 0x09, 0x84, 0x09, 0x84, 0x16, 0xd6);
++	nt37703_panel_switch_page(&dsi_ctx, 0x03);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x33);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc6, 0x00, 0x18, 0x00, 0x18, 0x00, 0x18, 0x00, 0x18);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x01);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2f, 0x83);
++	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8b, 0x00, 0x00);
++	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 120);
++	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
++
++	return dsi_ctx.accum_err;
++}
++
++static int nt37703_off(struct panel_info *pinfo)
++{
++	struct mipi_dsi_multi_context dsi_ctx = { .dsi = pinfo->dsi };
++
++	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
++	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
++	mipi_dsi_msleep(&dsi_ctx, 120);
++
++	return dsi_ctx.accum_err;
++}
++
++static int nt37703_prepare(struct drm_panel *panel)
++{
++	struct panel_info *pinfo = to_panel_info(panel);
++	struct device *dev = &pinfo->dsi->dev;
++	struct drm_dsc_picture_parameter_set pps;
++	int ret;
++
++	ret = regulator_bulk_enable(pinfo->desc->num_supplies, pinfo->supplies);
++	if (ret < 0) {
++		dev_err(dev, "Failed to enable regulators: %d\n", ret);
++		return ret;
++	}
++
++	nt37703_reset(pinfo);
++
++	ret = pinfo->desc->init_sequence(pinfo);
++	if (ret < 0) {
++		dev_err(dev, "Failed to initialize panel: %d\n", ret);
++		gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
++		regulator_bulk_disable(pinfo->desc->num_supplies, pinfo->supplies);
++		return ret;
++	}
++
++	drm_dsc_pps_payload_pack(&pps, &pinfo->dsc);
++
++	ret = mipi_dsi_picture_parameter_set(pinfo->dsi, &pps);
++	if (ret < 0) {
++		dev_err(panel->dev, "failed to transmit PPS: %d\n", ret);
++		return ret;
++	}
++
++	ret = mipi_dsi_compression_mode(pinfo->dsi, true);
++	if (ret < 0) {
++		dev_err(dev, "failed to enable compression mode: %d\n", ret);
++		return ret;
++	}
++
++	msleep(28);
++
++	return 0;
++}
++
++static int nt37703_unprepare(struct drm_panel *panel)
++{
++	struct panel_info *pinfo = to_panel_info(panel);
++	struct device *dev = &pinfo->dsi->dev;
++	int ret;
++
++	ret = nt37703_off(pinfo);
++	if (ret < 0)
++		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
++
++	gpiod_set_value_cansleep(pinfo->reset_gpio, 1);
++	regulator_bulk_disable(pinfo->desc->num_supplies, pinfo->supplies);
++
++	return 0;
++}
++
++static const struct drm_display_mode bronco_tianma_modes[] = {
++	{
++		.clock = (1080 + 16 + 4 + 16) * (2400 + 44 + 2 + 14) * 144 / 1000,
++		.hdisplay = 1080,
++		.hsync_start = 1080 + 16,
++		.hsync_end = 1080 + 16 + 4,
++		.htotal = 1080 + 16 + 4 + 16,
++		.vdisplay = 2400,
++		.vsync_start = 2400 + 44,
++		.vsync_end = 2400 + 44 + 2,
++		.vtotal = 2400 + 44 + 2 + 14,
++	},
++};
++
++/* TODO: Pass slice_per_pkt = 2 */
++static struct drm_dsc_config bronco_tianma_dsc_cfg = {
++	.dsc_version_major = 1,
++	.dsc_version_minor = 1,
++	.slice_height = 20,
++	.slice_width = 540,
++	.slice_count = 1080 / 540, /* 1080 / slice_width */
++	.bits_per_component = 8, /* FIXME: Downstream specifies bpc 10, but that doesn't work */
++	.bits_per_pixel = 8 << 4, /* 4 fractional bits */
++	.block_pred_enable = true,
++};
++
++static const struct regulator_bulk_data bronco_tianma_supplies[] = {
++	{ .supply = "vci" },
++	{ .supply = "avdd" },
++	{ .supply = "vddi" },
++	{ .supply = "vdd" },
++	{ .supply = "elvdd" },
++	{ .supply = "elvss" },
++};
++
++static const struct panel_desc bronco_tianma_v2_desc = {
++	.modes = bronco_tianma_modes,
++	.num_modes = ARRAY_SIZE(bronco_tianma_modes),
++	.width_mm = 68,
++	.height_mm = 152,
++	.lanes = 4,
++	.format = MIPI_DSI_FMT_RGB101010,
++	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
++	.init_sequence = bronco_tianma_v2_init_sequence,
++	.dsc_cfg = &bronco_tianma_dsc_cfg,
++	.supplies = bronco_tianma_supplies,
++	.num_supplies = ARRAY_SIZE(bronco_tianma_supplies),
++};
++
++static int nt37703_get_modes(struct drm_panel *panel, struct drm_connector *connector)
++{
++	struct panel_info *pinfo = to_panel_info(panel);
++	int i;
++
++	for (i = 0; i < pinfo->desc->num_modes; i++) {
++		const struct drm_display_mode *m = &pinfo->desc->modes[i];
++		struct drm_display_mode *mode;
++
++		mode = drm_mode_duplicate(connector->dev, m);
++		if (!mode) {
++			dev_err(panel->dev, "failed to add mode %ux%u@%u\n", m->hdisplay, m->vdisplay, drm_mode_vrefresh(m));
++			return -ENOMEM;
++		}
++
++		mode->type = DRM_MODE_TYPE_DRIVER;
++		if (i == 0)
++			mode->type |= DRM_MODE_TYPE_PREFERRED;
++
++		drm_mode_set_name(mode);
++		drm_mode_probed_add(connector, mode);
++	}
++
++	connector->display_info.width_mm = pinfo->desc->width_mm;
++	connector->display_info.height_mm = pinfo->desc->height_mm;
++
++	return pinfo->desc->num_modes;
++}
++
++static const struct drm_panel_funcs nt37703_panel_funcs = {
++	.prepare = nt37703_prepare,
++	.unprepare = nt37703_unprepare,
++	.get_modes = nt37703_get_modes,
++};
++
++static int nt37703_bl_update_status(struct backlight_device *bl)
++{
++	struct mipi_dsi_device *dsi = bl_get_data(bl);
++	u16 brightness = backlight_get_brightness(bl);
++	int ret;
++
++	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
++	if (ret < 0)
++		return ret;
++
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	return 0;
++}
++
++static int nt37703_bl_get_brightness(struct backlight_device *bl)
++{
++	struct mipi_dsi_device *dsi = bl_get_data(bl);
++	u16 brightness;
++	int ret;
++
++	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
++
++	ret = mipi_dsi_dcs_get_display_brightness_large(dsi, &brightness);
++	if (ret < 0)
++		return ret;
++
++	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
++
++	return brightness;
++}
++
++static const struct backlight_ops nt37703_bl_ops = {
++	.update_status = nt37703_bl_update_status,
++	.get_brightness = nt37703_bl_get_brightness,
++};
++
++static struct backlight_device *nt37703_create_backlight(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	const struct backlight_properties props = {
++		.type = BACKLIGHT_RAW,
++		.brightness = 2047,
++		.max_brightness = 4095,
++	};
++
++	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi, &nt37703_bl_ops, &props);
++}
++
++static int nt37703_probe(struct mipi_dsi_device *dsi)
++{
++	struct device *dev = &dsi->dev;
++	struct panel_info *pinfo;
++	int ret;
++
++	pinfo = devm_drm_panel_alloc(dev, struct panel_info, panel, &nt37703_panel_funcs, DRM_MODE_CONNECTOR_DSI);
++	if (IS_ERR(pinfo))
++		return PTR_ERR(pinfo);
++
++	pinfo->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(pinfo->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(pinfo->reset_gpio), "Failed to get reset-gpios\n");
++
++	pinfo->desc = of_device_get_match_data(dev);
++	if (!pinfo->desc)
++		return -ENODEV;
++
++	pinfo->dsc = *pinfo->desc->dsc_cfg;
++
++	ret = devm_regulator_bulk_get_const(dev, pinfo->desc->num_supplies, pinfo->desc->supplies, &pinfo->supplies);
++	if (ret < 0) {
++		return dev_err_probe(dev, ret, "Failed to get regulators\n");
++	}
++
++	pinfo->dsi = dsi;
++	mipi_dsi_set_drvdata(dsi, pinfo);
++
++	dsi->lanes = pinfo->desc->lanes;
++	dsi->format = pinfo->desc->format;
++	dsi->mode_flags = pinfo->desc->mode_flags;
++
++	pinfo->panel.prepare_prev_first = true;
++
++	pinfo->panel.backlight = nt37703_create_backlight(dsi);
++	if (IS_ERR(pinfo->panel.backlight))
++		return dev_err_probe(dev, PTR_ERR(pinfo->panel.backlight), "Failed to create backlight\n");
++
++	drm_panel_add(&pinfo->panel);
++
++	/* This panel only supports DSC; unconditionally enable it */
++	dsi->dsc = &pinfo->dsc;
++
++	ret = mipi_dsi_attach(dsi);
++	if (ret < 0) {
++		drm_panel_remove(&pinfo->panel);
++		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
++	}
++
++	return 0;
++}
++
++static void nt37703_remove(struct mipi_dsi_device *dsi)
++{
++	struct panel_info *pinfo = mipi_dsi_get_drvdata(dsi);
++	int ret;
++
++	ret = mipi_dsi_detach(dsi);
++	if (ret < 0)
++		dev_err(&dsi->dev, "Failed to detach from DSI host: %d\n", ret);
++
++	drm_panel_remove(&pinfo->panel);
++}
++
++static const struct of_device_id nt37703_of_match[] = {
++	{
++		.compatible = "motorola,bronco-tianma-v2-nt37703",
++		.data = &bronco_tianma_v2_desc,
++	},
++	{},
++};
++MODULE_DEVICE_TABLE(of, nt37703_of_match);
++
++static struct mipi_dsi_driver nt37703_driver = {
++	.probe = nt37703_probe,
++	.remove = nt37703_remove,
++	.driver = {
++		.name = "panel-novatek-nt37703",
++		.of_match_table = nt37703_of_match,
++	},
++};
++module_mipi_dsi_driver(nt37703_driver);
++
++MODULE_AUTHOR("Esteban Urrutia <esteuwu@proton.me>");
++MODULE_DESCRIPTION("DRM driver for Novatek NT37703 based MIPI DSI panels");
++MODULE_LICENSE("GPL");
+-- 
+2.54.0
+

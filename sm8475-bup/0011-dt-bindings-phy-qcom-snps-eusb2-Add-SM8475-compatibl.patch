@@ -1,0 +1,27 @@
+From bbd8698c1c089af7834747e24ea1974a15c8f441 Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Fri, 29 May 2026 01:32:37 -0400
+Subject: [PATCH 11/13] dt-bindings: phy: qcom,snps-eusb2: Add SM8475
+ compatible string
+
+Unlike SM8450, which uses an USB2 phy, SM8475 uses an eUSB2 phy, just like SM8550.
+Add a compatible string for SM8475 while depending on SM8550 compatible string.
+---
+ Documentation/devicetree/bindings/phy/qcom,snps-eusb2-phy.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/phy/qcom,snps-eusb2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,snps-eusb2-phy.yaml
+index 096f6b546632..2f8bb38a5b29 100644
+--- a/Documentation/devicetree/bindings/phy/qcom,snps-eusb2-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/qcom,snps-eusb2-phy.yaml
+@@ -21,6 +21,7 @@ properties:
+               - qcom,milos-snps-eusb2-phy
+               - qcom,sar2130p-snps-eusb2-phy
+               - qcom,sdx75-snps-eusb2-phy
++              - qcom,sm8475-snps-eusb2-phy
+               - qcom,sm8650-snps-eusb2-phy
+               - qcom,x1e80100-snps-eusb2-phy
+           - const: qcom,sm8550-snps-eusb2-phy
+-- 
+2.54.0
+

@@ -1,0 +1,51 @@
+From c6edcad90895ecd8bce0a99baad4353b959e202c Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Wed, 1 Jul 2026 22:41:58 -0400
+Subject: [PATCH 08/10] regulator: dt-bindings: qcom,rpmh: Add support for
+ PM8350B
+
+The PM8350B has only one LDO, which gets its power from a dedicated input. This LDO is commonly used for OLED DDIC power.
+Add support for it.
+---
+ .../bindings/regulator/qcom,rpmh-regulator.yaml       | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
+index d93594304651..eed2ce7fa861 100644
+--- a/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/qcom,rpmh-regulator.yaml
+@@ -47,6 +47,7 @@ description: |
+       For PM8150, smps1 - smps10, ldo1 - ldo18
+       For PM8150L, smps1 - smps8, ldo1 - ldo11, bob, flash, rgb
+       For PM8350, smps1 - smps12, ldo1 - ldo10
++      For PM8350B, ldo1
+       For PM8350C, smps1 - smps10, ldo1 - ldo13, bob
+       For PM8450, smps1 - smps6, ldo1 - ldo4
+       For PM8550, smps1 - smps6, ldo1 - ldo17, bob1 - bob2
+@@ -82,6 +83,7 @@ properties:
+       - qcom,pm8150-rpmh-regulators
+       - qcom,pm8150l-rpmh-regulators
+       - qcom,pm8350-rpmh-regulators
++      - qcom,pm8350b-rpmh-regulators
+       - qcom,pm8350c-rpmh-regulators
+       - qcom,pm8450-rpmh-regulators
+       - qcom,pm8550-rpmh-regulators
+@@ -337,6 +339,15 @@ allOf:
+       patternProperties:
+         "^vdd-s([1-9]|1[0-2])-supply$": true
+ 
++  - if:
++      properties:
++        compatible:
++          enum:
++            - qcom,pm8350b-rpmh-regulators
++    then:
++      properties:
++        vdd-l1-supply: true
++
+   - if:
+       properties:
+         compatible:
+-- 
+2.54.0
+

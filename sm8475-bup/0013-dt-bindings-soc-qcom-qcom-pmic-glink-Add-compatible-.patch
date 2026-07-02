@@ -1,0 +1,26 @@
+From f891fdab3ebd1557df1db97be71224ba9f9b610b Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Wed, 1 Jul 2026 23:08:21 -0400
+Subject: [PATCH 13/13] dt-bindings: soc: qcom: qcom,pmic-glink: Add compatible
+ string for SM8475
+
+Given SM8475 takes things from both SM8450 and SM8550, add a different compatible string in case quirks specific to it are applied later on.
+---
+ Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+index 2db4288a8a54..5cf538f396b7 100644
+--- a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
++++ b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
+@@ -30,6 +30,7 @@ properties:
+               - qcom,sc8280xp-pmic-glink
+               - qcom,sm8350-pmic-glink
+               - qcom,sm8450-pmic-glink
++              - qcom,sm8475-pmic-glink
+               - qcom,sm8550-pmic-glink
+           - const: qcom,pmic-glink
+       - items:
+-- 
+2.54.0
+

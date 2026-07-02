@@ -1,0 +1,27 @@
+From 9ebb4feb969af2704c7f41968e479724b57f89f4 Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Sat, 16 May 2026 21:44:55 -0400
+Subject: [PATCH 04/13] dt-bindings: phy: qcom,sc8280xp-qmp-usb43dp-phy: Add
+ SM8475 QMP PHY
+
+SM8450 init sequence for this PHY varies significantly and can't be used in SM8475.
+Add proper init sequence and bindings for the PHY found in this SoC.
+---
+ .../devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml   | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
+index 4eff92343ce4..b9d0de25f43c 100644
+--- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
++++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-usb43dp-phy.yaml
+@@ -37,6 +37,7 @@ properties:
+           - qcom,sm8250-qmp-usb3-dp-phy
+           - qcom,sm8350-qmp-usb3-dp-phy
+           - qcom,sm8450-qmp-usb3-dp-phy
++          - qcom,sm8475-qmp-usb3-dp-phy
+           - qcom,sm8550-qmp-usb3-dp-phy
+           - qcom,sm8650-qmp-usb3-dp-phy
+           - qcom,sm8750-qmp-usb3-dp-phy
+-- 
+2.54.0
+

@@ -1,0 +1,30 @@
+From b2ca4f4f5e1ba32d25a234383b6eebbefed802dc Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Tue, 19 May 2026 00:10:35 -0400
+Subject: [PATCH 5/8] phy: qcom: qmp-combo: Correct pre-emphasis table for QMP
+ v4 DP PHYs
+
+Comparing sm8350 and sm8450 tables, this seems to be a typo.
+
+Fixes: ef14aff107bd ("phy: qcom: com-qmp-combo: add SM8350 & SM8450 support")
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+---
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+index 9bd666ac2c49..5b278fd54a16 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
+@@ -2108,7 +2108,7 @@ static const u8 qmp_dp_v4_pre_emphasis_hbr3_hbr2[4][4] = {
+ static const u8 qmp_dp_v4_pre_emphasis_hbr_rbr[4][4] = {
+ 	{ 0x00, 0x0d, 0x14, 0x1a },
+ 	{ 0x00, 0x0e, 0x15, 0xff },
+-	{ 0x00, 0x0d, 0xff, 0xff },
++	{ 0x00, 0x0e, 0xff, 0xff },
+ 	{ 0x03, 0xff, 0xff, 0xff }
+ };
+ 
+-- 
+2.54.0
+

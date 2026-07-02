@@ -1,0 +1,25 @@
+From e58aa29b0dabe6e9e9f372da09b01d15c942937d Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Thu, 28 May 2026 23:29:18 -0400
+Subject: [PATCH 10/13] ASoC: dt-bindings: qcom,sm8250: Add SM8475 sndcard
+
+Add SM8475 sndcard using SM8450 sndcard const. SM8475 changes consist of only modifying this binding, so that a different firmware folder is used instead.
+---
+ Documentation/devicetree/bindings/sound/qcom,sm8250.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+index 15f38622b98b..1ee90f39060f 100644
+--- a/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
++++ b/Documentation/devicetree/bindings/sound/qcom,sm8250.yaml
+@@ -24,6 +24,7 @@ properties:
+       - items:
+           - enum:
+               - qcom,kaanapali-sndcard
++              - qcom,sm8475-sndcard
+               - qcom,sm8550-sndcard
+               - qcom,sm8650-sndcard
+               - qcom,sm8750-sndcard
+-- 
+2.54.0
+

@@ -1,0 +1,32 @@
+From 20c5b02cdb8b5313cc6cd9b5d0c8fa5f53a1edbf Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Sat, 16 May 2026 21:39:21 -0400
+Subject: [PATCH 03/10] dt-bindings: arm: qcom: Add ThinkPhone by motorola
+ (motorola-bronco)
+
+The ThinkPhone by motorola (motorola-bronco) is a smartphone released in 2023 featuring the SM8475 SoC.
+Since this is the first device featuring this SoC, add qcom,sm8475 and qcom,sm8450 consts as well.
+---
+ Documentation/devicetree/bindings/arm/qcom.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index 50cc18a6ec5e..881dc012195a 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1096,6 +1096,12 @@ properties:
+               - sony,pdx224
+           - const: qcom,sm8450
+ 
++      - items:
++          - enum:
++              - motorola,bronco
++          - const: qcom,sm8475
++          - const: qcom,sm8450
++
+       - items:
+           - enum:
+               - qcom,sm8550-hdk
+-- 
+2.54.0
+

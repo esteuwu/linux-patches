@@ -1,0 +1,26 @@
+From 0a5f296259a4862f7550497cbf398458ff86cdbf Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Wed, 1 Jul 2026 22:58:31 -0400
+Subject: [PATCH 10/10] arm64: defconfig: Enable PS5169 driver as module
+
+This driver is used in motorola-bronco for redriving the USB Type-C port.
+Enable it as a module.
+---
+ arch/arm64/configs/defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 3a8f9950e5e7..ba2e871aa9fa 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -1264,6 +1264,7 @@ CONFIG_TYPEC_MUX_FSA4480=m
+ CONFIG_TYPEC_MUX_GPIO_SBU=m
+ CONFIG_TYPEC_MUX_IT5205=m
+ CONFIG_TYPEC_MUX_NB7VPQ904M=m
++CONFIG_TYPEC_MUX_PS5169=m
+ CONFIG_TYPEC_MUX_PS883X=m
+ CONFIG_TYPEC_MUX_PTN36502=m
+ CONFIG_TYPEC_MUX_WCD939X_USBSS=m
+-- 
+2.54.0
+

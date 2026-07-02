@@ -1,0 +1,26 @@
+From f3c7b156417009b8c6f595cd5261c5b722107c1f Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Wed, 1 Jul 2026 23:05:44 -0400
+Subject: [PATCH 12/13] usb: typec: ucsi: ucsi_glink: Add compatible string for
+ SM8475
+
+Given SM8475 takes things from both SM8450 and SM8550, add a different compatible string in case quirks specific to it are applied later on.
+---
+ drivers/usb/typec/ucsi/ucsi_glink.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/usb/typec/ucsi/ucsi_glink.c b/drivers/usb/typec/ucsi/ucsi_glink.c
+index 12e07b9fe622..78a0ea349ed4 100644
+--- a/drivers/usb/typec/ucsi/ucsi_glink.c
++++ b/drivers/usb/typec/ucsi/ucsi_glink.c
+@@ -381,6 +381,7 @@ static const struct of_device_id pmic_glink_ucsi_of_quirks[] = {
+ 	{ .compatible = "qcom,sc8280xp-pmic-glink", .data = &quirk_sc8280xp, },
+ 	{ .compatible = "qcom,sm8350-pmic-glink", .data = &quirk_sc8180x, },
+ 	{ .compatible = "qcom,sm8450-pmic-glink", .data = &quirk_sm8450, },
++	{ .compatible = "qcom,sm8475-pmic-glink", .data = &quirk_sm8450, },
+ 	{ .compatible = "qcom,sm8550-pmic-glink", .data = &quirk_sm8450, },
+ 	{ .compatible = "qcom,x1e80100-pmic-glink", .data = &quirk_x1e80100, },
+ 	{}
+-- 
+2.54.0
+

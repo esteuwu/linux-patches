@@ -1,0 +1,28 @@
+From 33c3653d4c8f5acd30871e94419c3f53ae55895e Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Thu, 11 Jun 2026 21:33:43 -0400
+Subject: [PATCH 3/4] dt-bindings: net: qcom,ipa: Add SM8450 compatible string
+
+Declare compatible string in ipa binding for SM8450, which uses IPA v5.1.
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+---
+ Documentation/devicetree/bindings/net/qcom,ipa.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/net/qcom,ipa.yaml b/Documentation/devicetree/bindings/net/qcom,ipa.yaml
+index 68ec76fe4473..db91bfaaf833 100644
+--- a/Documentation/devicetree/bindings/net/qcom,ipa.yaml
++++ b/Documentation/devicetree/bindings/net/qcom,ipa.yaml
+@@ -53,6 +53,7 @@ properties:
+           - qcom,sdx65-ipa
+           - qcom,sm6350-ipa
+           - qcom,sm8350-ipa
++          - qcom,sm8450-ipa
+           - qcom,sm8550-ipa
+       - items:
+           - enum:
+-- 
+2.54.0
+

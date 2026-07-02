@@ -1,0 +1,43 @@
+From 6264404e95f378b061ab422bd0c09def7df344e5 Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Sat, 16 May 2026 21:05:35 -0400
+Subject: [PATCH 02/13] soc: qcom: pd-mapper: Add support for SM8475
+
+This SoC has a similar PD to the one present in SM8350/8450, but different nonetheless.
+---
+ drivers/soc/qcom/qcom_pd_mapper.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/drivers/soc/qcom/qcom_pd_mapper.c b/drivers/soc/qcom/qcom_pd_mapper.c
+index b99718e25f2f..92eca97871e2 100644
+--- a/drivers/soc/qcom/qcom_pd_mapper.c
++++ b/drivers/soc/qcom/qcom_pd_mapper.c
+@@ -561,6 +561,17 @@ static const struct qcom_pdm_domain_data *sm8350_domains[] = {
+ 	NULL,
+ };
+ 
++static const struct qcom_pdm_domain_data *sm8475_domains[] = {
++	&adsp_audio_pd,
++	&adsp_root_pd,
++	&adsp_charger_pd,
++	&cdsp_root_pd,
++	&mpss_root_pd_gps_pdr,
++	&slpi_root_pd,
++	&slpi_sensor_pd,
++	NULL,
++};
++
+ static const struct qcom_pdm_domain_data *sm8550_domains[] = {
+ 	&adsp_audio_pd,
+ 	&adsp_root_pd,
+@@ -623,6 +634,7 @@ static const struct of_device_id qcom_pdm_domains[] __maybe_unused = {
+ 	{ .compatible = "qcom,sm8250", .data = sm8250_domains, },
+ 	{ .compatible = "qcom,sm8350", .data = sm8350_domains, },
+ 	{ .compatible = "qcom,sm8450", .data = sm8350_domains, },
++	{ .compatible = "qcom,sm8475", .data = sm8475_domains, },
+ 	{ .compatible = "qcom,sm8550", .data = sm8550_domains, },
+ 	{ .compatible = "qcom,sm8650", .data = sm8550_domains, },
+ 	{ .compatible = "qcom,sm8750", .data = sm8550_domains, },
+-- 
+2.54.0
+

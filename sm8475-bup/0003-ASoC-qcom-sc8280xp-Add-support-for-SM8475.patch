@@ -1,0 +1,25 @@
+From a415a10ac1244b3de05cdb9a57e55ba46c926290 Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Sat, 16 May 2026 21:09:04 -0400
+Subject: [PATCH 03/13] ASoC: qcom: sc8280xp: Add support for SM8475
+
+Add compatible string for devices using this SoC, this way firmware can be kept in one folder.
+---
+ sound/soc/qcom/sc8280xp.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+index 7925aa3f63ba..4a584f3f6e6d 100644
+--- a/sound/soc/qcom/sc8280xp.c
++++ b/sound/soc/qcom/sc8280xp.c
+@@ -173,6 +173,7 @@ static const struct of_device_id snd_sc8280xp_dt_match[] = {
+ 	{.compatible = "qcom,qcs9100-sndcard", "sa8775p"},
+ 	{.compatible = "qcom,sc8280xp-sndcard", "sc8280xp"},
+ 	{.compatible = "qcom,sm8450-sndcard", "sm8450"},
++	{.compatible = "qcom,sm8475-sndcard", "sm8475"},
+ 	{.compatible = "qcom,sm8550-sndcard", "sm8550"},
+ 	{.compatible = "qcom,sm8650-sndcard", "sm8650"},
+ 	{.compatible = "qcom,sm8750-sndcard", "sm8750"},
+-- 
+2.54.0
+
