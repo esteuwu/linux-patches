@@ -4,9 +4,9 @@
 
 Patches are separated as follows:
 - b4/sm8450-ipa: Patches to get IPA (modem) working
-  - Already sent upstream
+  - v1 sent upstream, v2 pending (1 review pending)
 - b4/sm8450-qol: Small patches that fix very specific things
-  - Already sent upstream
+  - v1 sent upstream, v2 pending (2 reviews pending)
 - bronco-bup: Bringup for Motorola ThinkPhone by motorola
   - Not sent upstream yet, pending
 - sm8475-bup: Device tree and (some) peripherals bringup for SM8475 SoC
