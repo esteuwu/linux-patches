@@ -1,7 +1,7 @@
-From f5bf70475d1502a0177196968d66aa0938b5a07b Mon Sep 17 00:00:00 2001
+From 226857c167d333ca488631ee1caa64dae2edc4bb Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:37:26 -0400
-Subject: [PATCH 07/10] regulator: qcom-rpmh: Add support for PM8350B
+Subject: [PATCH 3/6] regulator: qcom-rpmh: Add support for PM8350B
 
 The PM8350B has only one LDO, which gets its power from a dedicated input. This LDO is commonly used for OLED DDIC power.
 Add support for it.
@@ -37,5 +37,5 @@ index 756a4201225e..73856e3df337 100644
  		.compatible = "qcom,pm8350c-rpmh-regulators",
  		.data = pm8350c_vreg_data,
 -- 
-2.54.0
+2.55.0
 

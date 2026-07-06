@@ -254,5 +254,5 @@ index cdcfad2e86b1..8c09d4c1594d 100644
  	.swing_hbr_rbr		= &qmp_dp_v6_voltage_swing_hbr_rbr,
  	.pre_emphasis_hbr_rbr	= &qmp_dp_v6_pre_emphasis_hbr_rbr,
 -- 
-2.54.0
+2.55.0
 

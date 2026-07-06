@@ -1,7 +1,7 @@
-From 22aebfd4994541f52da12106b7ca3e7fa432fe49 Mon Sep 17 00:00:00 2001
+From 00109aac540b4570792338e650e3575895520cde Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 02:08:18 -0400
-Subject: [PATCH 4/8] phy: qcom: qmp-combo: Drop qmp_v4_calibrate_dp_phy
+Subject: [PATCH 1/6] phy: qcom: qmp-combo: Drop qmp_v4_calibrate_dp_phy
 
 There are no downstream device trees that specify five values in the
 qcom,aux-cfg1-settings array.
@@ -149,5 +149,5 @@ index cdcfad2e86b1..9bd666ac2c49 100644
  {
  	const struct phy_configure_opts_dp *dp_opts = &opts->dp;
 -- 
-2.54.0
+2.55.0
 

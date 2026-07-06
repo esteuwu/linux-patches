@@ -22,5 +22,5 @@ index 2db4288a8a54..5cf538f396b7 100644
            - const: qcom,pmic-glink
        - items:
 -- 
-2.54.0
+2.55.0
 

@@ -1,7 +1,7 @@
-From 987c8f263aa14461da4cbca365604a9b5036ab9e Mon Sep 17 00:00:00 2001
+From 0d86fbbe195dc64f38527168d93d174c3562457d Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sun, 31 May 2026 16:54:05 -0400
-Subject: [PATCH 04/10] arm64: defconfig: Add Novatek NT37703 DriverIC
+Subject: [PATCH 4/5] arm64: defconfig: Add Novatek NT37703 DriverIC
 
 This DriverIC is used in motorola-bronco. Add it as a module.
 ---
@@ -21,5 +21,5 @@ index f2e6ae93e533..3a8f9950e5e7 100644
  CONFIG_DRM_PANEL_RAYDIUM_RM67191=m
  CONFIG_DRM_PANEL_RAYDIUM_RM692E5=m
 -- 
-2.54.0
+2.55.0
 

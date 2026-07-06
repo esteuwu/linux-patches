@@ -39,5 +39,5 @@ index b99718e25f2f..92eca97871e2 100644
  	{ .compatible = "qcom,sm8650", .data = sm8550_domains, },
  	{ .compatible = "qcom,sm8750", .data = sm8550_domains, },
 -- 
-2.54.0
+2.55.0
 

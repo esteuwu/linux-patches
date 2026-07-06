@@ -1,7 +1,7 @@
-From 75871b37b6be241ccac62d0890233e90395d8d02 Mon Sep 17 00:00:00 2001
+From aed8ebbc78fec17f96aad418c3e3fefa16d81c78 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 15:23:42 -0400
-Subject: [PATCH 02/10] drm/panel: Add Novatek NT37703 DriverIC panel driver
+Subject: [PATCH 2/5] drm/panel: Add Novatek NT37703 DriverIC panel driver
 
 Currently support is implemented only for motorola-bronco Tianma v2 panel which only supports DSC.
 Some details are pending, but it mostly works.
@@ -466,5 +466,5 @@ index 000000000000..5f3b5c87c56e
 +MODULE_DESCRIPTION("DRM driver for Novatek NT37703 based MIPI DSI panels");
 +MODULE_LICENSE("GPL");
 -- 
-2.54.0
+2.55.0
 

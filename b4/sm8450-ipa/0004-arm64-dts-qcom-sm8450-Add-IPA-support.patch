@@ -1,4 +1,4 @@
-From cb625a011426b385445f443af1ae4a17007af567 Mon Sep 17 00:00:00 2001
+From f0b7e72bc78976ede0b183c4487f52cf7f6a4dcc Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Mon, 25 May 2026 22:54:03 -0400
 Subject: [PATCH 4/4] arm64: dts: qcom: sm8450: Add IPA support
@@ -7,6 +7,8 @@ Add support for IPA in DT while expanding the IMEM region to accommodate
 the modem tables used by IPA.
 As reference, SM8450 uses IPA v5.1.
 
+Co-developed-by: Nazar Kompanets <xlie7669@gmail.com>
+Signed-off-by: Nazar Kompanets <xlie7669@gmail.com>
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
  arch/arm64/boot/dts/qcom/sm8450.dtsi | 55 +++++++++++++++++++++++++---
@@ -92,5 +94,5 @@ index 56cb6e959e4e..fe330e6b45d6 100644
  		};
  
 -- 
-2.54.0
+2.55.0
 

@@ -23,5 +23,5 @@ index 096f6b546632..2f8bb38a5b29 100644
                - qcom,x1e80100-snps-eusb2-phy
            - const: qcom,sm8550-snps-eusb2-phy
 -- 
-2.54.0
+2.55.0
 

@@ -1,7 +1,7 @@
-From 20c5b02cdb8b5313cc6cd9b5d0c8fa5f53a1edbf Mon Sep 17 00:00:00 2001
+From a3da22ed1a41431d96cdc391b823b9bdacfe4c98 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 21:39:21 -0400
-Subject: [PATCH 03/10] dt-bindings: arm: qcom: Add ThinkPhone by motorola
+Subject: [PATCH 3/5] dt-bindings: arm: qcom: Add ThinkPhone by motorola
  (motorola-bronco)
 
 The ThinkPhone by motorola (motorola-bronco) is a smartphone released in 2023 featuring the SM8475 SoC.
@@ -28,5 +28,5 @@ index 50cc18a6ec5e..881dc012195a 100644
            - enum:
                - qcom,sm8550-hdk
 -- 
-2.54.0
+2.55.0
 

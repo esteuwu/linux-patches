@@ -1,7 +1,7 @@
-From d8477f85af44ec15fbc9d9cc36b162ed7e00a685 Mon Sep 17 00:00:00 2001
+From 7db7f0c6d8875da28d7d44e471291bd478646c13 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:31:38 -0400
-Subject: [PATCH 06/10] dt-bindings: usb: fsa4480: Add compatible for WAS4780C
+Subject: [PATCH 2/6] dt-bindings: usb: fsa4480: Add compatible for WAS4780C
 
 The fsa4480 driver is mostly compatible with the Willsemi WAS4780C, though the data-lanes property doesn't match that of FSA4480.
 Document the correct behavior and add compatible.
@@ -40,5 +40,5 @@ index 89b1fb90aeeb..59f16dc2cb1f 100644
                    - AUX- connected to SBU1
  
 -- 
-2.54.0
+2.55.0
 

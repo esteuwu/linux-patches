@@ -1,4 +1,4 @@
-From 33c3653d4c8f5acd30871e94419c3f53ae55895e Mon Sep 17 00:00:00 2001
+From 38c4c3e3e1199d383c19d8abe09f5cb04ea39523 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Thu, 11 Jun 2026 21:33:43 -0400
 Subject: [PATCH 3/4] dt-bindings: net: qcom,ipa: Add SM8450 compatible string
@@ -24,5 +24,5 @@ index 68ec76fe4473..db91bfaaf833 100644
        - items:
            - enum:
 -- 
-2.54.0
+2.55.0
 

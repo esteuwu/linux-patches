@@ -144,5 +144,5 @@ index 3618812e84d5..47d7196460ee 100644
  		.compatible = "qcom,sm8550-qmp-gen3x2-pcie-phy",
  		.data = &sm8550_qmp_gen3x2_pciephy_cfg,
 -- 
-2.54.0
+2.55.0
 

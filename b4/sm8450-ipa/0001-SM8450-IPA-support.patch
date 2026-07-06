@@ -1,4 +1,4 @@
-From cc5cb9e6aa2cc739b19b638509f2d23fe73e1016 Mon Sep 17 00:00:00 2001
+From 074fbf7e4e553824a073dde991d8120169f5833e Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Mon, 22 Jun 2026 21:25:02 -0400
 Subject: [PATCH 1/4] SM8450 IPA support
@@ -32,6 +32,8 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 
 ---
 Changes in v2:
+- Add Nazar Kompanets as a co-developer
+  - We both worked on independent IPA implementations
 - Apply suggestions from Konrad
 - Apply suggestions from Krzysztof
 - Delete wrong note about SMEM size
@@ -55,5 +57,5 @@ Changes in v2:
   }
 }
 -- 
-2.54.0
+2.55.0
 

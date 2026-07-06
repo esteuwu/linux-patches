@@ -1,7 +1,7 @@
-From c6edcad90895ecd8bce0a99baad4353b959e202c Mon Sep 17 00:00:00 2001
+From 7233cae6ad83019caac0412251adb89f11e40e39 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:41:58 -0400
-Subject: [PATCH 08/10] regulator: dt-bindings: qcom,rpmh: Add support for
+Subject: [PATCH 4/6] regulator: dt-bindings: qcom,rpmh: Add support for
  PM8350B
 
 The PM8350B has only one LDO, which gets its power from a dedicated input. This LDO is commonly used for OLED DDIC power.
@@ -47,5 +47,5 @@ index d93594304651..eed2ce7fa861 100644
        properties:
          compatible:
 -- 
-2.54.0
+2.55.0
 

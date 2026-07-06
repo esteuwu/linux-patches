@@ -22,5 +22,5 @@ index 12e07b9fe622..78a0ea349ed4 100644
  	{ .compatible = "qcom,x1e80100-pmic-glink", .data = &quirk_x1e80100, },
  	{}
 -- 
-2.54.0
+2.55.0
 

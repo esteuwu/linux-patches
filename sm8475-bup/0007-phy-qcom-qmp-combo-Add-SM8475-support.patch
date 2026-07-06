@@ -133,5 +133,5 @@ index 8c09d4c1594d..2a58a1c3cb64 100644
  		.compatible = "qcom,sm8550-qmp-usb3-dp-phy",
  		.data = &sm8550_usb3dpphy_cfg,
 -- 
-2.54.0
+2.55.0
 

@@ -1,4 +1,4 @@
-From 091a816988ebef8ad817e35544fd5a3e3fe38ce4 Mon Sep 17 00:00:00 2001
+From ab2ac1a079a92142fbda226fc1b0029f3fbaf237 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 13 Jun 2026 19:22:10 -0400
 Subject: [PATCH 2/4] net: ipa: Add IPA v5.1 data
@@ -7,15 +7,17 @@ Add the required ipa_data-v5.1.c file for IPA v5.1 along with changes that
 declare IPA v5.1 support.
 This version of IPA is used in both SM8450 and SM8475 SoCs.
 
+Co-developed-by: Nazar Kompanets <xlie7669@gmail.com>
+Signed-off-by: Nazar Kompanets <xlie7669@gmail.com>
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
  drivers/net/ipa/Makefile             |   2 +-
- drivers/net/ipa/data/ipa_data-v5.1.c | 473 +++++++++++++++++++++++++++
+ drivers/net/ipa/data/ipa_data-v5.1.c | 474 +++++++++++++++++++++++++++
  drivers/net/ipa/gsi_reg.c            |   1 +
  drivers/net/ipa/ipa_data.h           |   1 +
  drivers/net/ipa/ipa_main.c           |   4 +
  drivers/net/ipa/ipa_reg.c            |   1 +
- 6 files changed, 481 insertions(+), 1 deletion(-)
+ 6 files changed, 482 insertions(+), 1 deletion(-)
  create mode 100644 drivers/net/ipa/data/ipa_data-v5.1.c
 
 diff --git a/drivers/net/ipa/Makefile b/drivers/net/ipa/Makefile
@@ -33,14 +35,15 @@ index e148ec3c1a10..d4995c2e8ca0 100644
  
 diff --git a/drivers/net/ipa/data/ipa_data-v5.1.c b/drivers/net/ipa/data/ipa_data-v5.1.c
 new file mode 100644
-index 000000000000..6ca619d39e5a
+index 000000000000..539d456591a1
 --- /dev/null
 +++ b/drivers/net/ipa/data/ipa_data-v5.1.c
-@@ -0,0 +1,473 @@
+@@ -0,0 +1,474 @@
 +// SPDX-License-Identifier: GPL-2.0
 +
 +/* Copyright (C) 2023-2024 Linaro Ltd. */
 +/* Copyright (C) 2026 Esteban Urrutia <esteuwu@proton.me> */
++/* Copyright (C) 2026 Nazar Kompanets <xlie7669@gmail.com> */
 +
 +#include <linux/array_size.h>
 +#include <linux/log2.h>
@@ -562,5 +565,5 @@ index 30bd69f4c147..5f22ca6295b1 100644
  		return &ipa_regs_v5_0;
  	case IPA_VERSION_5_5:
 -- 
-2.54.0
+2.55.0
 

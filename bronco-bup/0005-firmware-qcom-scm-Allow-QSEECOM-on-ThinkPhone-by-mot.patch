@@ -1,7 +1,7 @@
-From 5ac8a5d48499c53c79dc2668113882cb8ffb8bc0 Mon Sep 17 00:00:00 2001
+From 783c82a855e904705cb5e556a3da8b78cd076f12 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:25:58 -0400
-Subject: [PATCH 05/10] firmware: qcom: scm: Allow QSEECOM on ThinkPhone by
+Subject: [PATCH 5/5] firmware: qcom: scm: Allow QSEECOM on ThinkPhone by
  motorola
 
 While this device doesn't have UEFI settings per se (therefore the uefisecapp TA is useless in this case), this allows the QSEE interface to be exposed.
@@ -22,5 +22,5 @@ index 6b601a4b89db..ba9a373c5d0f 100644
  	{ .compatible = "qcom,hamoa-iot-evk" },
  	{ .compatible = "qcom,mahua-crd" },
 -- 
-2.54.0
+2.55.0
 
