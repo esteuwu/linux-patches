@@ -11,6 +11,8 @@ Patches are separated as follows:
   - Not sent upstream yet, pending
 - sm8475-bup: Device tree and (some) peripherals bringup for SM8475 SoC
   - Not sent upstream yet, pending
+- unsorted: Various patches for various things
+  - Not sent upstream yet, pending
 
 Patches can be applied at any order, if that doesn't work try alphabetically.
 Tested on 7.1.0-rc2 (mainline) and linux-next.
