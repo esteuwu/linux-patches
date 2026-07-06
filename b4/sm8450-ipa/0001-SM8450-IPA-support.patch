@@ -1,4 +1,4 @@
-From 074fbf7e4e553824a073dde991d8120169f5833e Mon Sep 17 00:00:00 2001
+From 73bc550f846ac19ca317431a7879b68781acf4d2 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Mon, 22 Jun 2026 21:25:02 -0400
 Subject: [PATCH 1/4] SM8450 IPA support
@@ -32,7 +32,7 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 
 ---
 Changes in v2:
-- Add Nazar Kompanets as a co-developer
+- Add Nazar Kompanets as a co-developer on some patches
   - We both worked on independent IPA implementations
 - Apply suggestions from Konrad
 - Apply suggestions from Krzysztof
