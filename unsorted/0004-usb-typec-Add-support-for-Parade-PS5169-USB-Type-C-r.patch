@@ -1,7 +1,7 @@
-From 8324264b346342a9a75c7034191c1c6778e9ca8b Mon Sep 17 00:00:00 2001
+From 71631fed96fad5cd76e48fdbca0d1be5904fc2db Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:47:16 -0400
-Subject: [PATCH 5/6] usb: typec: Add support for Parade PS5169 USB Type-C
+Subject: [PATCH 4/6] usb: typec: Add support for Parade PS5169 USB Type-C
  redriver
 
 The Parade PS5169 is an USB Type-C linear redriver that can handle both 10Gb USB and a DisplayPort output at once.
@@ -12,8 +12,8 @@ When handling only DisplayPort, it can make use of up to four lanes (this depend
 ---
  drivers/usb/typec/mux/Kconfig  |  10 +
  drivers/usb/typec/mux/Makefile |   1 +
- drivers/usb/typec/mux/ps5169.c | 471 +++++++++++++++++++++++++++++++++
- 3 files changed, 482 insertions(+)
+ drivers/usb/typec/mux/ps5169.c | 494 +++++++++++++++++++++++++++++++++
+ 3 files changed, 505 insertions(+)
  create mode 100644 drivers/usb/typec/mux/ps5169.c
 
 diff --git a/drivers/usb/typec/mux/Kconfig b/drivers/usb/typec/mux/Kconfig
@@ -51,10 +51,10 @@ index b4f599eb5053..c775bfa12068 100644
  obj-$(CONFIG_TYPEC_MUX_TUSB1046)	+= tusb1046.o
 diff --git a/drivers/usb/typec/mux/ps5169.c b/drivers/usb/typec/mux/ps5169.c
 new file mode 100644
-index 000000000000..3940550d481b
+index 000000000000..474ff6150145
 --- /dev/null
 +++ b/drivers/usb/typec/mux/ps5169.c
-@@ -0,0 +1,471 @@
+@@ -0,0 +1,494 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Driver for Parade PS5169 USB Type-C linear redriver
@@ -67,6 +67,7 @@ index 000000000000..3940550d481b
 +
 +#include <linux/i2c.h>
 +#include <linux/regmap.h>
++
 +#include <linux/usb/typec_altmode.h>
 +#include <linux/usb/typec_dp.h>
 +#include <linux/usb/typec_mux.h>
@@ -84,6 +85,8 @@ index 000000000000..3940550d481b
 +/* PS5169 registers */
 +#define PS5169_CONFIG_REG               0x40
 +#define PS5169_GAIN_REG                 0x5c
++#define PS5169_DP_GAIN_REG              PS5169_GAIN_REG
++#define PS5169_USB_RX_GAIN_REG          PS5169_GAIN_REG
 +#define PS5169_USB_TX_GAIN_REG          PS5169_GAIN_REG
 +#define PS5169_AUX_CHANNEL_REG          0xa0
 +#define PS5169_HPD_LEVEL_REG            0xa1
@@ -91,12 +94,19 @@ index 000000000000..3940550d481b
 +#define PS5169_CHIP_REVISION_REG        0xae
 +#define PS5169_MAX_REG                  PS5169_CHIP_REVISION_REG
 +
++/* PS5169 masks */
++#define PS5169_DP_GAIN_MASK             BIT(4)
++#define PS5169_USB_RX_GAIN_MASK         BIT(2)
++#define PS5169_USB_TX_GAIN_MASK         BIT(0)
++
 +/* PS5169 register values */
 +#define PS5169_CONFIG_REVERSE           BIT(4)
 +#define PS5169_CONFIG_DP_EN             BIT(5)
 +#define PS5169_CONFIG_USB3_EN           BIT(6)
 +#define PS5169_CONFIG_BASE              BIT(7)
-+#define PS5169_USB_TX_GAIN_MINUS_0_9_DB 0x01
++#define PS5169_DP_GAIN_MINUS_0_9_DB     PS5169_DP_GAIN_MASK
++#define PS5169_USB_RX_GAIN_MINUS_0_9_DB PS5169_USB_RX_GAIN_MASK
++#define PS5169_USB_TX_GAIN_MINUS_0_9_DB PS5169_USB_TX_GAIN_MASK
 +#define PS5169_AUX_CHANNEL_ENABLE       0x00
 +#define PS5169_AUX_CHANNEL_DISABLE      0x02
 +#define PS5169_HPD_LEVEL_LOW            0x00
@@ -104,42 +114,47 @@ index 000000000000..3940550d481b
 +#define PS5169_CHIP_ID                  0x6987
 +
 +/* PS5169 register tables */
-+static const int ps5169_dp_eq_reg[PS5169_DP_EQ_REG_COUNT]         = {0x52, 0x5e};
-+static const int ps5169_usb_rx_eq_reg[PS5169_USB_RX_EQ_REG_COUNT] = {0x51, 0x77, 0x54, 0x78};
-+static const int ps5169_usb_tx_eq_reg[PS5169_USB_TX_EQ_REG_COUNT] = {0x50, 0x5d, 0x54};
++static const int ps5169_dp_eq_reg[PS5169_DP_EQ_REG_COUNT]          = {0x52, 0x5e};
++static const int ps5169_usb_rx_eq_reg[PS5169_USB_RX_EQ_REG_COUNT]  = {0x51, 0x77, 0x54, 0x78};
++static const int ps5169_usb_tx_eq_reg[PS5169_USB_TX_EQ_REG_COUNT]  = {0x50, 0x5d, 0x54};
++
++/* PS5169 register mask tables */
++static const int ps5169_dp_eq_mask[PS5169_DP_EQ_REG_COUNT]         = {0x70, 0x07};
++static const int ps5169_usb_rx_eq_mask[PS5169_USB_RX_EQ_REG_COUNT] = {0x70, 0xf0, 0x0f, 0xe1};
++static const int ps5169_usb_tx_eq_mask[PS5169_USB_TX_EQ_REG_COUNT] = {0x70, 0x70, 0xf0};
 +
 +/* PS5169 register value tables */
 +static const int ps5169_dp_eq[PS5169_DP_EQ_LEVEL_COUNT][PS5169_DP_EQ_REG_COUNT] = {
-+	{0x00, 0x04},             /* 2   dB */
-+	{0x10, 0x05},             /* 5.5 dB */
-+	{0x20, 0x06},             /* 6.5 dB */
-+	{0x30, 0x06},             /* 7.5 dB */
-+	{0x40, 0x06},             /* 8   dB */
-+	{0x50, 0x07},             /* 8.5 dB */
-+	{0x60, 0x07},             /* 9.5 dB */
-+	{0x70, 0x07},             /* 10  dB, supposedly */
++	{0x00, 0x04},             /* 2    dB */
++	{0x10, 0x05},             /* 5.5  dB */
++	{0x20, 0x06},             /* 6.5  dB */
++	{0x30, 0x06},             /* 7.5  dB */
++	{0x40, 0x06},             /* 8    dB */
++	{0x50, 0x07},             /* 8.5  dB */
++	{0x60, 0x07},             /* 9.5  dB */
++	{0x70, 0x07},             /* 10   dB, supposedly */
 +};
 +
 +static const int ps5169_usb_rx_eq[PS5169_USB_RX_EQ_LEVEL_COUNT][PS5169_USB_RX_EQ_REG_COUNT] = {
-+	{0x00, 0x00, 0x00, 0x20}, /* 5.2  dB */
-+	{0x10, 0x00, 0x01, 0x20}, /* 6    dB */
-+	{0x20, 0x50, 0x01, 0x40}, /* 7    dB */
-+	{0x30, 0x50, 0x05, 0x40}, /* 8    dB */
-+	{0x40, 0xb0, 0x0c, 0x80}, /* 8.8  dB */
-+	{0x50, 0xf0, 0x05, 0x80}, /* 9.6  dB */
-+	{0x60, 0xf0, 0x0f, 0x80}, /* 10.4 dB */
-+	{0x70, 0x30, 0x0f, 0xa1}, /* 11.2 dB */
++	{0x86, 0x00, 0x00, 0x20}, /* 5.2  dB */
++	{0x96, 0x00, 0x01, 0x20}, /* 6    dB */
++	{0xa6, 0x50, 0x01, 0x40}, /* 7    dB */
++	{0xb6, 0x50, 0x05, 0x40}, /* 8    dB */
++	{0xc6, 0xb0, 0x0c, 0x80}, /* 8.8  dB */
++	{0xd6, 0xf0, 0x05, 0x80}, /* 9.6  dB */
++	{0xe6, 0xf0, 0x0f, 0x80}, /* 10.4 dB */
++	{0xf6, 0x30, 0x0f, 0xa1}, /* 11.2 dB */
 +};
 +
 +static const int ps5169_usb_tx_eq[PS5169_USB_TX_EQ_LEVEL_COUNT][PS5169_USB_TX_EQ_REG_COUNT] = {
-+	{0x00, 0x40, 0x00},       /* 2   dB */
-+	{0x10, 0x50, 0x10},       /* 5.5 dB */
-+	{0x20, 0x60, 0x10},       /* 6.5 dB */
-+	{0x30, 0x60, 0x50},       /* 7.5 dB */
-+	{0x40, 0x60, 0xc0},       /* 8   dB */
-+	{0x50, 0x70, 0x50},       /* 8.5 dB */
-+	{0x60, 0x70, 0xf0},       /* 9.5 dB */
-+	{0x70, 0x70, 0xf0},       /* 10  dB, supposedly */
++	{0x00, 0x40, 0x00},       /* 2    dB */
++	{0x10, 0x50, 0x10},       /* 5.5  dB */
++	{0x20, 0x60, 0x10},       /* 6.5  dB */
++	{0x30, 0x60, 0x50},       /* 7.5  dB */
++	{0x40, 0x60, 0xc0},       /* 8    dB */
++	{0x50, 0x70, 0x50},       /* 8.5  dB */
++	{0x60, 0x70, 0xf0},       /* 9.5  dB */
++	{0x70, 0x70, 0xf0},       /* 10   dB, supposedly */
 +};
 +
 +struct redriver {
@@ -178,7 +193,7 @@ index 000000000000..3940550d481b
 +{
 +	regmap_write(map, reg, val);
 +
-+	if ((val & PS5169_CONFIG_DP_EN) == PS5169_CONFIG_DP_EN) {
++	if (val & PS5169_CONFIG_DP_EN) {
 +		regmap_write(map, PS5169_AUX_CHANNEL_REG, PS5169_AUX_CHANNEL_ENABLE);
 +		regmap_write(map, PS5169_HPD_LEVEL_REG, PS5169_HPD_LEVEL_HIGH);
 +	}
@@ -195,14 +210,15 @@ index 000000000000..3940550d481b
 +
 +	switch (ps5169->mode) {
 +	case TYPEC_STATE_SAFE:
-+		/* FIXME: Rather than setting 'val' to its default value, define a proper value for it */
-+		val = PS5169_CONFIG_USB3_EN;
 +		ps5169_write(ps5169->regmap, PS5169_CONFIG_REG, val);
 +
 +		return 0;
 +
 +	case TYPEC_STATE_USB:
-+		/* TODO: Implement logic in here */
++		val |= PS5169_CONFIG_USB3_EN;
++		if (reverse)
++			val |= PS5169_CONFIG_REVERSE;
++		ps5169_write(ps5169->regmap, PS5169_CONFIG_REG, val);
 +
 +		return 0;
 +
@@ -298,17 +314,17 @@ index 000000000000..3940550d481b
 +	/* DP equalization */
 +	if (ps5169->dp_eq != U8_MAX)
 +		for (i = 0; i < PS5169_DP_EQ_REG_COUNT; i++)
-+			regmap_write(ps5169->regmap, ps5169_dp_eq_reg[i], ps5169_dp_eq[ps5169->dp_eq][i]);
++			regmap_update_bits(ps5169->regmap, ps5169_dp_eq_reg[i], ps5169_dp_eq_mask[i], ps5169_dp_eq[ps5169->dp_eq][i]);
 +
 +	/* USB RX equalization */
 +	if (ps5169->usb_rx_eq != U8_MAX)
 +		for (i = 0; i < PS5169_USB_RX_EQ_REG_COUNT; i++)
-+			regmap_write(ps5169->regmap, ps5169_usb_rx_eq_reg[i], ps5169_usb_rx_eq[ps5169->usb_rx_eq][i]);
++			regmap_update_bits(ps5169->regmap, ps5169_usb_rx_eq_reg[i], ps5169_usb_rx_eq_mask[i], ps5169_usb_rx_eq[ps5169->usb_rx_eq][i]);
 +
 +	/* USB TX equalization */
 +	if (ps5169->usb_tx_eq != U8_MAX)
 +		for (i = 0; i < PS5169_USB_TX_EQ_REG_COUNT; i++)
-+			regmap_write(ps5169->regmap, ps5169_usb_tx_eq_reg[i], ps5169_usb_tx_eq[ps5169->usb_tx_eq][i]);
++			regmap_update_bits(ps5169->regmap, ps5169_usb_tx_eq_reg[i], ps5169_usb_tx_eq_mask[i], ps5169_usb_tx_eq[ps5169->usb_tx_eq][i]);
 +}
 +
 +static int ps5169_probe(struct i2c_client *client)
@@ -466,13 +482,20 @@ index 000000000000..3940550d481b
 +
 +	ps5169_set_eq(ps5169);
 +
++	/* DP gain */
++	if (device_property_read_bool(dev, "parade,dp-set-gain"))
++		/* If this property is present a -0.9 dB gain will be set on DP */
++		regmap_update_bits(ps5169->regmap, PS5169_DP_GAIN_REG, PS5169_DP_GAIN_MASK, PS5169_DP_GAIN_MINUS_0_9_DB);
++
++	/* USB RX gain */
++	if (device_property_read_bool(dev, "parade,usb-rx-set-gain"))
++		/* If this property is present a -0.9 dB gain will be set on USB RX */
++		regmap_update_bits(ps5169->regmap, PS5169_USB_RX_GAIN_REG, PS5169_USB_RX_GAIN_MASK, PS5169_USB_RX_GAIN_MINUS_0_9_DB);
++
 +	/* USB TX gain */
 +	if (device_property_read_bool(dev, "parade,usb-tx-set-gain"))
-+		/*
-+		 * This is the only gain setting that's available on this chip.
-+		 * If this property is present a -0.9 dB gain will be set on USB TX.
-+		 */
-+		regmap_write(ps5169->regmap, PS5169_USB_TX_GAIN_REG, PS5169_USB_TX_GAIN_MINUS_0_9_DB);
++		/* If this property is present a -0.9 dB gain will be set on USB TX */
++		regmap_update_bits(ps5169->regmap, PS5169_USB_TX_GAIN_REG, PS5169_USB_TX_GAIN_MASK, PS5169_USB_TX_GAIN_MINUS_0_9_DB);
 +
 +	mutex_init(&ps5169->lock);
 +

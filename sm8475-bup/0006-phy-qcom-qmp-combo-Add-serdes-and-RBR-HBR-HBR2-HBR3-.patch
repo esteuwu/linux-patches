@@ -1,4 +1,4 @@
-From 60183361c9b4e0d1f937b800a03b544437edc1f9 Mon Sep 17 00:00:00 2001
+From 8453859a55f00d8de1a0a2c928a18488eb15eb76 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sun, 17 May 2026 18:35:03 -0400
 Subject: [PATCH 06/13] phy: qcom: qmp-combo: Add serdes and RBR/HBR/HBR2/HBR3

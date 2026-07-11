@@ -1,7 +1,7 @@
-From 3bc86682edff80e7ea921344197388394bfb2a19 Mon Sep 17 00:00:00 2001
+From de01b609d7fb3f7c3bf8af833b1bcf3f13d6408d Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Thu, 11 Jun 2026 21:33:43 -0400
-Subject: [PATCH 3/4] dt-bindings: net: qcom,ipa: Add SM8450 compatible string
+Subject: [PATCH 2/4] dt-bindings: net: qcom,ipa: Add SM8450 compatible string
 
 Declare compatible string in ipa binding for SM8450, which uses IPA v5.1.
 

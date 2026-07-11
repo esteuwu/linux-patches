@@ -1,7 +1,7 @@
-From 658a2506c04f8f406cf791275d5dafe1617db605 Mon Sep 17 00:00:00 2001
+From b00f74891f7496499277d7c1a2fa0f1ac02edafc Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 17:38:06 -0400
-Subject: [PATCH 2/8] arm64: dts: qcom: sm8450: Modify swr1 ports
+Subject: [PATCH 2/9] arm64: dts: qcom: sm8450: Modify swr1 ports
 
 For HPH_CLH, according to downstream, sinterval should be set to 0x3f, not
 0x1f.
@@ -14,7 +14,7 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
  1 file changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index 56cb6e959e4e..f545950339bd 100644
+index 7ddd0f5f539c..3797abcc1a58 100644
 --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
 @@ -2944,20 +2944,20 @@ swr1: soundwire@3210000 {

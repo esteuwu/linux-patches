@@ -1,4 +1,4 @@
-From 8886714ff2c4daa3f4a5e463079d092a2dc9018d Mon Sep 17 00:00:00 2001
+From 293dd725eea7aa42f92184e1b12c0ebb9457c963 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 18:10:14 -0400
 Subject: [PATCH 01/13] arm64: dts: qcom: Initial Snapdragon 8+ Gen 1 (SM8475)

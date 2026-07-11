@@ -1,7 +1,7 @@
-From 1431d0aecc0a81fcda9f1e0c3e9f5e57024ae64b Mon Sep 17 00:00:00 2001
+From 28acc5f2b00954eeaca8d5e57796e484179fab6e Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 13 Jun 2026 19:22:10 -0400
-Subject: [PATCH 2/4] net: ipa: Add IPA v5.1 data
+Subject: [PATCH 3/4] net: ipa: Add IPA v5.1 data
 
 Add the required ipa_data-v5.1.c file for IPA v5.1 along with changes that
 declare IPA v5.1 support.

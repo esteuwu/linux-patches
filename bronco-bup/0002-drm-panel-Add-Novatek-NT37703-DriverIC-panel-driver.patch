@@ -1,4 +1,4 @@
-From aed8ebbc78fec17f96aad418c3e3fefa16d81c78 Mon Sep 17 00:00:00 2001
+From cced8fb508edf79f6a9d69e2c18dabb4161cb864 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 15:23:42 -0400
 Subject: [PATCH 2/5] drm/panel: Add Novatek NT37703 DriverIC panel driver
@@ -13,10 +13,10 @@ Some details are pending, but it mostly works.
  create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt37703.c
 
 diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7450b27622a2..1a0a56cadf1d 100644
+index cfbfb371bc67..a9570635a9f7 100644
 --- a/drivers/gpu/drm/panel/Kconfig
 +++ b/drivers/gpu/drm/panel/Kconfig
-@@ -651,6 +651,18 @@ config DRM_PANEL_NOVATEK_NT37700F
+@@ -693,6 +693,18 @@ config DRM_PANEL_NOVATEK_NT37700F
  	  Say Y here if you want to enable support for Novatek NT37700F DSI
  	  panel module. The panel has a resolution of 1080x2160.
  
@@ -36,10 +36,10 @@ index 7450b27622a2..1a0a56cadf1d 100644
  	tristate "Novatek NT37801/NT37810 AMOLED DSI panel"
  	depends on OF
 diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index c2c5cf817116..405d47afcb2e 100644
+index 0f29f22f589e..a41ebcf7db03 100644
 --- a/drivers/gpu/drm/panel/Makefile
 +++ b/drivers/gpu/drm/panel/Makefile
-@@ -63,6 +63,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36523) += panel-novatek-nt36523.o
+@@ -67,6 +67,7 @@ obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36523) += panel-novatek-nt36523.o
  obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672A) += panel-novatek-nt36672a.o
  obj-$(CONFIG_DRM_PANEL_NOVATEK_NT36672E) += panel-novatek-nt36672e.o
  obj-$(CONFIG_DRM_PANEL_NOVATEK_NT37700F) += panel-novatek-nt37700f.o

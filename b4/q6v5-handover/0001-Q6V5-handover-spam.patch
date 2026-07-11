@@ -1,0 +1,56 @@
+From 240992e389ed4f352b0cf4f4adab3b284ac8b255 Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Wed, 8 Jul 2026 23:07:38 -0400
+Subject: [PATCH 1/2] Q6V5 handover spam
+
+I've been using the mainline kernel for a while now on motorola-bronco,
+which is an SM8475 based device.
+This device's firmware for the remoteprocs, specially for the SLPI,
+seems to signal handovers way too frequently.
+As of now, the Q6V5 driver will print an error each time a remoteproc
+signals a handover twice, which leads to the kernel buffer filling up
+pretty quickly.
+I would like to suggest replacing the call to dev_err() with
+dev_err_once() and would like feedback as to whether this is the proper
+way of handling firmwares with this behavior.
+This way, the error would still be printed, but only once, and this
+issue would become much less of an annoyance for devices with buggy
+firmware like this.
+
+Regards,
+Esteban
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Mathieu Poirier <mathieu.poirier@linaro.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-remoteproc@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+
+---
+Changes in v2:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v1: https://patch.msgid.link/20260708-q6v5-handover-v1-1-be0e6cba0b13@proton.me
+
+--- b4-submit-tracking ---
+{
+  "series": {
+    "revision": 2,
+    "change-id": "20260708-q6v5-handover-6fdc6bd4c265",
+    "prefixes": [
+      "RFC"
+    ],
+    "presubject": "",
+    "history": {
+      "v1": [
+        "20260708-q6v5-handover-v1-1-be0e6cba0b13@proton.me"
+      ]
+    }
+  }
+}
+-- 
+2.55.0
+

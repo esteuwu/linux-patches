@@ -1,4 +1,4 @@
-From acde17d0e8cc0fc28b5741e9e48a26a882714aaf Mon Sep 17 00:00:00 2001
+From 46c8ea8bf79df2f5dfc3f69e356c3a27009c34ae Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 21:36:56 -0400
 Subject: [PATCH 08/13] phy: qcom: qmp-pcie: Add pcs_lane1 offset to V5 offsets

@@ -1,7 +1,7 @@
-From 00109aac540b4570792338e650e3575895520cde Mon Sep 17 00:00:00 2001
+From dcb5e1621da6c41748bb88802485e0621b946dcf Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 02:08:18 -0400
-Subject: [PATCH 1/6] phy: qcom: qmp-combo: Drop qmp_v4_calibrate_dp_phy
+Subject: [PATCH 4/9] phy: qcom: qmp-combo: Drop qmp_v4_calibrate_dp_phy
 
 There are no downstream device trees that specify five values in the
 qcom,aux-cfg1-settings array.
@@ -10,6 +10,8 @@ which refer this function, only 0x13 is specified.
 Since 0x13 is written at initialization time, drop this function as a
 whole, and remove now unused variable assignations.
 
+Fixes: aff188feb5e1 ("phy: qcom-qmp: add support for sm8250-usb3-dp phy")
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 31 -----------------------

@@ -1,7 +1,7 @@
-From c9b29b074615313e77589f29755b285aa05ed8f5 Mon Sep 17 00:00:00 2001
+From 7494af9a86d375eba15569bb325f2b03ed76b6f0 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 21:14:53 -0400
-Subject: [PATCH 3/8] iommu/arm-smmu-qcom: Add SM8450 MDSS compatible
+Subject: [PATCH 3/9] iommu/arm-smmu-qcom: Add SM8450 MDSS compatible
 
 Add the compatible for the MDSS client on the Snapdragon 8 Gen 1 so it can
 be properly configured by the IOMMU driver.

@@ -1,4 +1,4 @@
-From ceea0a70802e24194d1c0d02a1b3d3fcd4a54ddb Mon Sep 17 00:00:00 2001
+From 22354139d490f7c3e4e7f0abbf130f9268d2da4c Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 21:41:02 -0400
 Subject: [PATCH 09/13] phy: qcom: qmp-pcie: Add support for SM8475 Gen3x1

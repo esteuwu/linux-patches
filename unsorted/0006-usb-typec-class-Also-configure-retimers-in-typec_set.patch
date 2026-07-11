@@ -1,0 +1,48 @@
+From 8b4747df5abe33a91b619d8c59bdb1c0fe2d0992 Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Fri, 10 Jul 2026 17:00:21 -0400
+Subject: [PATCH 6/6] usb: typec: class: Also configure retimers in
+ typec_set_mode()
+
+Some devices have both a mux and a retimer wired to the same port, in which a graph connection between SBU and the mux does exist, while the retimer may also need one.
+If there is no graph connection between SBU and the retimer, TYPEC_STATE_USB is never delivered to it.
+Depending on the driver, this may result in non-working USB operation.
+Fix this by also configuring the retimers needed for the requested mode.
+---
+ drivers/usb/typec/class.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
+index 54c7810b563b..a27590a9e27d 100644
+--- a/drivers/usb/typec/class.c
++++ b/drivers/usb/typec/class.c
+@@ -2494,15 +2494,22 @@ EXPORT_SYMBOL_GPL(typec_get_orientation);
+  * @mode: Accessory Mode, USB Operation or Safe State
+  *
+  * Configure @port for Accessory Mode @mode. This function will configure the
+- * muxes needed for @mode.
++ * muxes and retimers needed for @mode.
+  */
+ int typec_set_mode(struct typec_port *port, int mode)
+ {
+-	struct typec_mux_state state = { };
++	struct typec_mux_state mux_state = { };
++	struct typec_retimer_state retimer_state = { };
++	int ret;
++
++	mux_state.mode = mode;
++	retimer_state.mode = mode;
+ 
+-	state.mode = mode;
++	ret = typec_mux_set(port->mux, &mux_state);
++	if (ret)
++		return ret;
+ 
+-	return typec_mux_set(port->mux, &state);
++	return typec_retimer_set(port->retimer, &retimer_state);
+ }
+ EXPORT_SYMBOL_GPL(typec_set_mode);
+ 
+-- 
+2.55.0
+

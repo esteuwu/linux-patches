@@ -1,7 +1,7 @@
-From df8f38d8ace3321df4070a8e72a68dc08d27c930 Mon Sep 17 00:00:00 2001
+From af4cc1246b6d5ab1b7b4acc4406b9c17146f9780 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Mon, 6 Jul 2026 09:53:30 -0400
-Subject: [PATCH 8/8] arm64: dts: qcom: sm8450: Add mode-switch property to
+Subject: [PATCH 9/9] arm64: dts: qcom: sm8450: Add mode-switch property to
  qmpphy
 
 USB QMP PHY is a possible handler of altmode switching, so add this
@@ -13,7 +13,7 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index f545950339bd..05458c5ceac4 100644
+index 3797abcc1a58..fc723cbd2e99 100644
 --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
 @@ -2669,6 +2669,7 @@ usb_1_qmpphy: phy@88e8000 {

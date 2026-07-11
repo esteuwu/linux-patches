@@ -1,4 +1,4 @@
-From 2bccc1567885d76e9388ead8a264771ce84e54df Mon Sep 17 00:00:00 2001
+From e379d25f6cfcf5e5a4cabc40a78e44ee788585e3 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Mon, 25 May 2026 22:54:03 -0400
 Subject: [PATCH 4/4] arm64: dts: qcom: sm8450: Add IPA support
@@ -15,7 +15,7 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
  1 file changed, 50 insertions(+), 5 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index 56cb6e959e4e..fe330e6b45d6 100644
+index 7ddd0f5f539c..be470062bf94 100644
 --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
 @@ -2639,6 +2639,47 @@ adreno_smmu: iommu@3da0000 {

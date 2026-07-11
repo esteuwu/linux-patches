@@ -1,7 +1,7 @@
-From 77e47f596c2645495fd01168d80337fe0b5d4e07 Mon Sep 17 00:00:00 2001
+From d2d073333137f4778ce52f91f0321b222978cbbf Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 24 Jun 2026 22:57:40 -0400
-Subject: [PATCH 6/8] clk: qcom: dispcc-sm8450: Migrate to qcom_cc_driver_data
+Subject: [PATCH 7/9] clk: qcom: dispcc-sm8450: Migrate to qcom_cc_driver_data
 
 Migrate to qcom_cc_driver_data, which is used by other clock controller
 drivers.
@@ -12,10 +12,10 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
  1 file changed, 21 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/clk/qcom/dispcc-sm8450.c b/drivers/clk/qcom/dispcc-sm8450.c
-index 251b53dc0817..285918afdd27 100644
+index c7e04bd315d5..07f22b5b5ee5 100644
 --- a/drivers/clk/qcom/dispcc-sm8450.c
 +++ b/drivers/clk/qcom/dispcc-sm8450.c
-@@ -1779,6 +1779,22 @@ static const struct regmap_config disp_cc_sm8450_regmap_config = {
+@@ -1778,6 +1778,22 @@ static const struct regmap_config disp_cc_sm8450_regmap_config = {
  	.fast_io = true,
  };
  
@@ -38,7 +38,7 @@ index 251b53dc0817..285918afdd27 100644
  static const struct qcom_cc_desc disp_cc_sm8450_desc = {
  	.config = &disp_cc_sm8450_regmap_config,
  	.clks = disp_cc_sm8450_clocks,
-@@ -1787,6 +1803,7 @@ static const struct qcom_cc_desc disp_cc_sm8450_desc = {
+@@ -1786,6 +1802,7 @@ static const struct qcom_cc_desc disp_cc_sm8450_desc = {
  	.num_resets = ARRAY_SIZE(disp_cc_sm8450_resets),
  	.gdscs = disp_cc_sm8450_gdscs,
  	.num_gdscs = ARRAY_SIZE(disp_cc_sm8450_gdscs),
@@ -46,7 +46,7 @@ index 251b53dc0817..285918afdd27 100644
  };
  
  static const struct of_device_id disp_cc_sm8450_match_table[] = {
-@@ -1824,19 +1841,16 @@ static int disp_cc_sm8450_probe(struct platform_device *pdev)
+@@ -1823,19 +1840,16 @@ static int disp_cc_sm8450_probe(struct platform_device *pdev)
  		disp_cc_pll1.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID_OLE];
  		disp_cc_pll1.clkr.hw.init = &sm8475_disp_cc_pll1_init;
  

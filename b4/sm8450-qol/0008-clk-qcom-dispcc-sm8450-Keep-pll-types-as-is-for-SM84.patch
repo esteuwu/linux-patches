@@ -1,7 +1,7 @@
-From ded09e0002f14cbf3e48b1c0a8de30677553880d Mon Sep 17 00:00:00 2001
+From 894f5dadc7ba9c736ac8a2be74a862f73744b704 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 24 Jun 2026 22:59:54 -0400
-Subject: [PATCH 7/8] clk: qcom: dispcc-sm8450: Keep pll types as is for SM8475
+Subject: [PATCH 8/9] clk: qcom: dispcc-sm8450: Keep pll types as is for SM8475
 
 While using an OLE PLL type is correct according to downstream code, this
 results in the display flickering at boot for SM8475 because downstream
@@ -18,10 +18,10 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
  1 file changed, 2 deletions(-)
 
 diff --git a/drivers/clk/qcom/dispcc-sm8450.c b/drivers/clk/qcom/dispcc-sm8450.c
-index 285918afdd27..5012e410cb4a 100644
+index 07f22b5b5ee5..2c0edc23eeb1 100644
 --- a/drivers/clk/qcom/dispcc-sm8450.c
 +++ b/drivers/clk/qcom/dispcc-sm8450.c
-@@ -1834,11 +1834,9 @@ static int disp_cc_sm8450_probe(struct platform_device *pdev)
+@@ -1833,11 +1833,9 @@ static int disp_cc_sm8450_probe(struct platform_device *pdev)
  
  	if (of_device_is_compatible(pdev->dev.of_node, "qcom,sm8475-dispcc")) {
  		/* Update DISPCC PLL0 */

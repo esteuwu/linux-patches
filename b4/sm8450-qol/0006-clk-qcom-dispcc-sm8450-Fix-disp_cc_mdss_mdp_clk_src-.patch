@@ -1,7 +1,7 @@
-From f71c4c2398c8624e42f99e51af6c43c27e21066a Mon Sep 17 00:00:00 2001
+From 7d92b67640e2334795764b798fec9f2811dbf97c Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 24 Jun 2026 22:03:35 -0400
-Subject: [PATCH 5/8] clk: qcom: dispcc-sm8450: Fix disp_cc_mdss_mdp_clk_src
+Subject: [PATCH 6/9] clk: qcom: dispcc-sm8450: Fix disp_cc_mdss_mdp_clk_src
  ops
 
 If the clock frequency is changed at registration time, a flicker will be
@@ -15,10 +15,10 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/clk/qcom/dispcc-sm8450.c b/drivers/clk/qcom/dispcc-sm8450.c
-index 2e91332dd92a..251b53dc0817 100644
+index 3af120e54cdd..c7e04bd315d5 100644
 --- a/drivers/clk/qcom/dispcc-sm8450.c
 +++ b/drivers/clk/qcom/dispcc-sm8450.c
-@@ -614,7 +614,7 @@ static struct clk_rcg2 disp_cc_mdss_mdp_clk_src = {
+@@ -613,7 +613,7 @@ static struct clk_rcg2 disp_cc_mdss_mdp_clk_src = {
  		.parent_data = disp_cc_parent_data_5,
  		.num_parents = ARRAY_SIZE(disp_cc_parent_data_5),
  		.flags = CLK_SET_RATE_PARENT,

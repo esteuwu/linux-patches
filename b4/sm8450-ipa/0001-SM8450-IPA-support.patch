@@ -1,4 +1,4 @@
-From 73bc550f846ac19ca317431a7879b68781acf4d2 Mon Sep 17 00:00:00 2001
+From a33bb3409f884373e221f14c83905d3b794725ba Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Mon, 22 Jun 2026 21:25:02 -0400
 Subject: [PATCH 1/4] SM8450 IPA support
@@ -34,6 +34,7 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 Changes in v2:
 - Add Nazar Kompanets as a co-developer on some patches
   - We both worked on independent IPA implementations
+- Apply suggestions from Dmitry
 - Apply suggestions from Konrad
 - Apply suggestions from Krzysztof
 - Delete wrong note about SMEM size
@@ -42,7 +43,6 @@ Changes in v2:
 - Link to v1: https://patch.msgid.link/20260622-sm8450-ipa-v1-0-532f0299f96e@proton.me
 
 --- b4-submit-tracking ---
-# This section is used internally by b4 prep for tracking purposes.
 {
   "series": {
     "revision": 2,

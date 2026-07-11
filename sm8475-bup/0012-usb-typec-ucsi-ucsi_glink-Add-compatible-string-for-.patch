@@ -1,4 +1,4 @@
-From f3c7b156417009b8c6f595cd5261c5b722107c1f Mon Sep 17 00:00:00 2001
+From 2590b4793e429faf7fd07abf121026fc329d97b3 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 23:05:44 -0400
 Subject: [PATCH 12/13] usb: typec: ucsi: ucsi_glink: Add compatible string for

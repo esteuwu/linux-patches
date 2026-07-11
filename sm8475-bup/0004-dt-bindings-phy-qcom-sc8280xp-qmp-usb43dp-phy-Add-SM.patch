@@ -1,4 +1,4 @@
-From 9ebb4feb969af2704c7f41968e479724b57f89f4 Mon Sep 17 00:00:00 2001
+From 8560e08f03e074a044d9009b89ed385d4ecb3b02 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 21:44:55 -0400
 Subject: [PATCH 04/13] dt-bindings: phy: qcom,sc8280xp-qmp-usb43dp-phy: Add
