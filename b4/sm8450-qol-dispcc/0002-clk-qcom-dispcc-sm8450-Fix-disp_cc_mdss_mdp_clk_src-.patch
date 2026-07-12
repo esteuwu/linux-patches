@@ -1,7 +1,7 @@
-From 7d92b67640e2334795764b798fec9f2811dbf97c Mon Sep 17 00:00:00 2001
+From 667b86571130cc225b743532a6368d17cba49335 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 24 Jun 2026 22:03:35 -0400
-Subject: [PATCH 6/9] clk: qcom: dispcc-sm8450: Fix disp_cc_mdss_mdp_clk_src
+Subject: [PATCH 2/4] clk: qcom: dispcc-sm8450: Fix disp_cc_mdss_mdp_clk_src
  ops
 
 If the clock frequency is changed at registration time, a flicker will be

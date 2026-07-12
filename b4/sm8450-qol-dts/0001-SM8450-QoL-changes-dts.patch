@@ -1,0 +1,53 @@
+From dde78b8f5291d53ce3fe09b58ae1e3c78a7b177f Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Sat, 11 Jul 2026 21:32:49 -0400
+Subject: [PATCH 1/3] SM8450 QoL changes (dts)
+
+These patches focus on correcting some details on the DTS for the SM8450
+SoC.
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+
+---
+Changes in v3:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v2: https://patch.msgid.link/20260711-sm8450-qol-dts-v2-0-5eb2e86468c5@proton.me
+
+Changes in v2:
+- Split series in subseries (dispcc, dts, qmp, smmu)
+- Add mode-switch patch
+- Drop applied patches
+- Drop GPU operating points patch (existing map seems to be OK)
+- Link to v1: https://patch.msgid.link/20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me
+
+--- b4-submit-tracking ---
+# This section is used internally by b4 prep for tracking purposes.
+{
+  "series": {
+    "revision": 3,
+    "change-id": "20260711-sm8450-qol-dts-8935a6b95807",
+    "prefixes": [],
+    "presubject": "",
+    "history": {
+      "v1": [
+        "20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me"
+      ],
+      "v2": [
+        "20260711-sm8450-qol-dts-v2-0-5eb2e86468c5@proton.me"
+      ]
+    }
+  }
+}
+-- 
+2.55.0
+

@@ -1,7 +1,7 @@
-From d2d073333137f4778ce52f91f0321b222978cbbf Mon Sep 17 00:00:00 2001
+From fa295b96110440399ad8ef027bec271466d02480 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 24 Jun 2026 22:57:40 -0400
-Subject: [PATCH 7/9] clk: qcom: dispcc-sm8450: Migrate to qcom_cc_driver_data
+Subject: [PATCH 3/4] clk: qcom: dispcc-sm8450: Migrate to qcom_cc_driver_data
 
 Migrate to qcom_cc_driver_data, which is used by other clock controller
 drivers.

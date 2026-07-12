@@ -1,0 +1,54 @@
+From 62ea66312c2c4b075ae1ed66f5972216632a8769 Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Sat, 11 Jul 2026 21:32:06 -0400
+Subject: [PATCH 1/4] SM8450 QoL changes (dispcc)
+
+These patches are mainly focused on getting a flickerless boot process
+on SM8475 based devices.
+
+To: Bjorn Andersson <andersson@kernel.org>
+To: Michael Turquette <mturquette@baylibre.com>
+To: Stephen Boyd <sboyd@kernel.org>
+To: Brian Masney <bmasney@redhat.com>
+To: Dmitry Baryshkov <lumag@kernel.org>
+To: Danila Tikhonov <danila@jiaxyga.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-clk@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+
+---
+Changes in v3:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v2: https://patch.msgid.link/20260711-sm8450-qol-dispcc-v2-0-fc1a07ac5601@proton.me
+
+Changes in v2:
+- Split series in subseries (dispcc, dts, qmp, smmu)
+- Migrate to qcom_cc_driver_data (Konrad)
+- Split mdss patch into 3 patches
+- Use Fixes tag where applicable (Krzysztof)
+- Link to v1: https://patch.msgid.link/20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me
+
+--- b4-submit-tracking ---
+# This section is used internally by b4 prep for tracking purposes.
+{
+  "series": {
+    "revision": 3,
+    "change-id": "20260711-sm8450-qol-dispcc-09b2951d25b0",
+    "prefixes": [],
+    "presubject": "",
+    "history": {
+      "v1": [
+        "20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me"
+      ],
+      "v2": [
+        "20260711-sm8450-qol-dispcc-v2-0-fc1a07ac5601@proton.me"
+      ]
+    }
+  }
+}
+-- 
+2.55.0
+

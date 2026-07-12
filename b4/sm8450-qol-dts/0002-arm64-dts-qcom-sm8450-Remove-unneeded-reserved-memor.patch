@@ -1,0 +1,52 @@
+From d187a3d0095d2af69a4d5ec45dc860d5993f0073 Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Fri, 12 Jun 2026 22:09:08 -0400
+Subject: [PATCH 2/3] arm64: dts: qcom: sm8450: Remove unneeded reserved memory
+ nodes
+
+These nodes are not present on downstream device trees and only take memory
+away from the AP.
+No crashes occur without these nodes, so remove them.
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+---
+ arch/arm64/boot/dts/qcom/sm8450.dtsi | 15 ---------------
+ 1 file changed, 15 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+index 7ddd0f5f539c..cf7c8f831fb0 100644
+--- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
+@@ -752,11 +752,6 @@ oem_vm_mem: memory@bb000000 {
+ 			no-map;
+ 		};
+ 
+-		mte_mem: memory@c0000000 {
+-			reg = <0x0 0xc0000000 0x0 0x20000000>;
+-			no-map;
+-		};
+-
+ 		qheebsp_reserved_mem: memory@e0000000 {
+ 			reg = <0x0 0xe0000000 0x0 0x600000>;
+ 			no-map;
+@@ -806,16 +801,6 @@ qtee_mem: memory@e9b00000 {
+ 			reg = <0x0 0xe9b00000 0x0 0x500000>;
+ 			no-map;
+ 		};
+-
+-		trusted_apps_mem: memory@ea000000 {
+-			reg = <0x0 0xea000000 0x0 0x3900000>;
+-			no-map;
+-		};
+-
+-		trusted_apps_ext_mem: memory@ed900000 {
+-			reg = <0x0 0xed900000 0x0 0x3b00000>;
+-			no-map;
+-		};
+ 	};
+ 
+ 	smp2p-adsp {
+-- 
+2.55.0
+

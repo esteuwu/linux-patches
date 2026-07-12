@@ -1,7 +1,7 @@
-From 894f5dadc7ba9c736ac8a2be74a862f73744b704 Mon Sep 17 00:00:00 2001
+From e90be168d9c518dff26abf82e53c9ca758f63884 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 24 Jun 2026 22:59:54 -0400
-Subject: [PATCH 8/9] clk: qcom: dispcc-sm8450: Keep pll types as is for SM8475
+Subject: [PATCH 4/4] clk: qcom: dispcc-sm8450: Keep pll types as is for SM8475
 
 While using an OLE PLL type is correct according to downstream code, this
 results in the display flickering at boot for SM8475 because downstream

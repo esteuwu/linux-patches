@@ -1,7 +1,7 @@
-From dcb5e1621da6c41748bb88802485e0621b946dcf Mon Sep 17 00:00:00 2001
+From 52bc269c55cd49131c77438b30aff2471c3c0ef6 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 02:08:18 -0400
-Subject: [PATCH 4/9] phy: qcom: qmp-combo: Drop qmp_v4_calibrate_dp_phy
+Subject: [PATCH 3/3] phy: qcom: qmp-combo: Drop qmp_v4_calibrate_dp_phy
 
 There are no downstream device trees that specify five values in the
 qcom,aux-cfg1-settings array.
@@ -18,7 +18,7 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
  1 file changed, 31 deletions(-)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index cdcfad2e86b1..9bd666ac2c49 100644
+index a72c3b9654ec..5b278fd54a16 100644
 --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
 +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
 @@ -2325,7 +2325,6 @@ static int qmp_v3_calibrate_dp_phy(struct qmp_combo *qmp);
