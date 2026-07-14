@@ -4,8 +4,7 @@ Targeting SM8450 QoL changes and SM8475 & motorola-bronco bringup. Patches are s
 
 ## Accepted/Sent
 - applied: Patches accepted into the kernel
-- b4/q6v5-handover: Patches to stop remoteproc handover spam in dmesg
-  - Sent as RFC
+- ARCHIVED: Patches already present somewhere, will be checked when they arrive in [here](https://github.com/torvalds/linux)
 - b4/sm8450-ipa: Patches to get IPA (modem) working
   - v1 sent upstream, 0/3 reviewed
 - b4/sm8450-qol-dispcc: Patches to get a flickerless boot in SM8475
@@ -16,6 +15,8 @@ Targeting SM8450 QoL changes and SM8475 & motorola-bronco bringup. Patches are s
   - v2 sent upstream, 1/2 reviewed
 - b4/sm8450-qol-smmu: Patches to allow mdss driver to work properly
   - v2 sent upstream, 1/1 reviewed
+- b4/sm8475-bup: Patches to bringup some SM8475 PHYs
+  - v1 sent upstream, 0/6 reviewed
 
 ## Work area
 
