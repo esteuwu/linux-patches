@@ -1,4 +1,4 @@
-From 62ea66312c2c4b075ae1ed66f5972216632a8769 Mon Sep 17 00:00:00 2001
+From a6075340dc301d45de518121197b3345379dcc31 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 11 Jul 2026 21:32:06 -0400
 Subject: [PATCH 1/4] SM8450 QoL changes (dispcc)
@@ -11,7 +11,7 @@ To: Michael Turquette <mturquette@baylibre.com>
 To: Stephen Boyd <sboyd@kernel.org>
 To: Brian Masney <bmasney@redhat.com>
 To: Dmitry Baryshkov <lumag@kernel.org>
-To: Danila Tikhonov <danila@jiaxyga.com>
+To: Jagadeesh Kona <quic_jkona@quicinc.com>
 Cc: linux-arm-msm@vger.kernel.org
 Cc: linux-clk@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
@@ -19,9 +19,13 @@ Cc: phone-devel@vger.kernel.org
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 
 ---
-Changes in v3:
+Changes in v4:
 - EDITME: describe what is new in this series revision.
 - EDITME: use bulletpoints and terse descriptions.
+- Link to v3: https://patch.msgid.link/20260713-sm8450-qol-dispcc-v3-0-56fd05822270@proton.me
+
+Changes in v3:
+- Apply suggestions from Konrad
 - Link to v2: https://patch.msgid.link/20260711-sm8450-qol-dispcc-v2-0-fc1a07ac5601@proton.me
 
 Changes in v2:
@@ -35,7 +39,7 @@ Changes in v2:
 # This section is used internally by b4 prep for tracking purposes.
 {
   "series": {
-    "revision": 3,
+    "revision": 4,
     "change-id": "20260711-sm8450-qol-dispcc-09b2951d25b0",
     "prefixes": [],
     "presubject": "",
@@ -45,6 +49,9 @@ Changes in v2:
       ],
       "v2": [
         "20260711-sm8450-qol-dispcc-v2-0-fc1a07ac5601@proton.me"
+      ],
+      "v3": [
+        "20260713-sm8450-qol-dispcc-v3-0-56fd05822270@proton.me"
       ]
     }
   }

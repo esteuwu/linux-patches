@@ -1,4 +1,4 @@
-From fa295b96110440399ad8ef027bec271466d02480 Mon Sep 17 00:00:00 2001
+From c1e5bfd70522662aff683fb6aca87a06c72ffb41 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 24 Jun 2026 22:57:40 -0400
 Subject: [PATCH 3/4] clk: qcom: dispcc-sm8450: Migrate to qcom_cc_driver_data
@@ -6,16 +6,17 @@ Subject: [PATCH 3/4] clk: qcom: dispcc-sm8450: Migrate to qcom_cc_driver_data
 Migrate to qcom_cc_driver_data, which is used by other clock controller
 drivers.
 
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
- drivers/clk/qcom/dispcc-sm8450.c | 28 +++++++++++++++++++++-------
- 1 file changed, 21 insertions(+), 7 deletions(-)
+ drivers/clk/qcom/dispcc-sm8450.c | 38 +++++++++++++++++++++++---------
+ 1 file changed, 28 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/clk/qcom/dispcc-sm8450.c b/drivers/clk/qcom/dispcc-sm8450.c
-index c7e04bd315d5..07f22b5b5ee5 100644
+index c7e04bd315d5..facbf040ab9a 100644
 --- a/drivers/clk/qcom/dispcc-sm8450.c
 +++ b/drivers/clk/qcom/dispcc-sm8450.c
-@@ -1778,6 +1778,22 @@ static const struct regmap_config disp_cc_sm8450_regmap_config = {
+@@ -1778,6 +1778,29 @@ static const struct regmap_config disp_cc_sm8450_regmap_config = {
  	.fast_io = true,
  };
  
@@ -28,17 +29,24 @@ index c7e04bd315d5..07f22b5b5ee5 100644
 +	0xe05c, /* DISP_CC_XO_CLK */
 +};
 +
++static void disp_cc_sm8450_clk_regs_configure(struct device *dev, struct regmap *regmap)
++{
++	/* Enable clock gating for MDP clocks */
++	regmap_set_bits(regmap, DISP_CC_MISC_CMD, BIT(4));
++}
++
 +static const struct qcom_cc_driver_data disp_cc_sm8450_driver_data = {
 +	.alpha_plls = disp_cc_sm8450_plls,
 +	.num_alpha_plls = ARRAY_SIZE(disp_cc_sm8450_plls),
 +	.clk_cbcrs = disp_cc_sm8450_critical_cbcrs,
 +	.num_clk_cbcrs = ARRAY_SIZE(disp_cc_sm8450_critical_cbcrs),
++	.clk_regs_configure = disp_cc_sm8450_clk_regs_configure,
 +};
 +
  static const struct qcom_cc_desc disp_cc_sm8450_desc = {
  	.config = &disp_cc_sm8450_regmap_config,
  	.clks = disp_cc_sm8450_clocks,
-@@ -1786,6 +1802,7 @@ static const struct qcom_cc_desc disp_cc_sm8450_desc = {
+@@ -1786,6 +1809,7 @@ static const struct qcom_cc_desc disp_cc_sm8450_desc = {
  	.num_resets = ARRAY_SIZE(disp_cc_sm8450_resets),
  	.gdscs = disp_cc_sm8450_gdscs,
  	.num_gdscs = ARRAY_SIZE(disp_cc_sm8450_gdscs),
@@ -46,7 +54,7 @@ index c7e04bd315d5..07f22b5b5ee5 100644
  };
  
  static const struct of_device_id disp_cc_sm8450_match_table[] = {
-@@ -1823,19 +1840,16 @@ static int disp_cc_sm8450_probe(struct platform_device *pdev)
+@@ -1823,19 +1847,13 @@ static int disp_cc_sm8450_probe(struct platform_device *pdev)
  		disp_cc_pll1.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_LUCID_OLE];
  		disp_cc_pll1.clkr.hw.init = &sm8475_disp_cc_pll1_init;
  
@@ -61,9 +69,9 @@ index c7e04bd315d5..07f22b5b5ee5 100644
 +		disp_cc_pll1.config = &disp_cc_pll1_config;
  	}
  
- 	/* Enable clock gating for MDP clocks */
- 	regmap_update_bits(regmap, DISP_CC_MISC_CMD, 0x10, 0x10);
- 
+-	/* Enable clock gating for MDP clocks */
+-	regmap_update_bits(regmap, DISP_CC_MISC_CMD, 0x10, 0x10);
+-
 -	/* Keep some clocks always-on */
 -	qcom_branch_set_clk_en(regmap, 0xe05c); /* DISP_CC_XO_CLK */
 -

@@ -1,4 +1,4 @@
-From d187a3d0095d2af69a4d5ec45dc860d5993f0073 Mon Sep 17 00:00:00 2001
+From 8062a7d8ea06796f1077be0a11c9717717be89a2 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Fri, 12 Jun 2026 22:09:08 -0400
 Subject: [PATCH 2/3] arm64: dts: qcom: sm8450: Remove unneeded reserved memory
@@ -9,6 +9,7 @@ away from the AP.
 No crashes occur without these nodes, so remove them.
 
 Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
  arch/arm64/boot/dts/qcom/sm8450.dtsi | 15 ---------------

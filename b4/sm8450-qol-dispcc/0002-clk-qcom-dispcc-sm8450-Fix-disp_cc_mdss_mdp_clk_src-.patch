@@ -1,4 +1,4 @@
-From 667b86571130cc225b743532a6368d17cba49335 Mon Sep 17 00:00:00 2001
+From dec80777c3ede0c1761bd3f2c1a280c1c4043d7d Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 24 Jun 2026 22:03:35 -0400
 Subject: [PATCH 2/4] clk: qcom: dispcc-sm8450: Fix disp_cc_mdss_mdp_clk_src
@@ -9,6 +9,7 @@ visible at boot.
 Switching to clk_rcg2_shared_no_init_park_ops fixes this.
 
 Fixes: 16fb89f92ec4 ("clk: qcom: Add support for Display Clock Controller on SM8450")
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
  drivers/clk/qcom/dispcc-sm8450.c | 2 +-
