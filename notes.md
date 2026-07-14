@@ -5,7 +5,9 @@
 
 # TODO
 
-- [ ] write retimer driver
+- [X] write retimer driver
+
+dooone, just need to cover edge cases and optimize code. it works!
 
 - [ ] check thermal sensors in dt
 
