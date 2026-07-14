@@ -1,4 +1,4 @@
-From 09664f6ed8321cdca4f9d60335138d3aa2a9034f Mon Sep 17 00:00:00 2001
+From 659bb1d3e347dd7bf6fa9a934a871e41f7bba534 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:41:58 -0400
 Subject: [PATCH 3/6] regulator: dt-bindings: qcom,rpmh: Add support for

@@ -1,11 +1,15 @@
-From 22354139d490f7c3e4e7f0abbf130f9268d2da4c Mon Sep 17 00:00:00 2001
+From 1a34c322a9753db5bf7f5926518563c5fa033a51 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 21:41:02 -0400
-Subject: [PATCH 09/13] phy: qcom: qmp-pcie: Add support for SM8475 Gen3x1
- PCIe0 port
+Subject: [PATCH 4/7] phy: qcom: qmp-pcie: Add support for SM8475 Gen3x1 PCIe0
+ port
 
 This gets the port working. Tested with WCN6856 WLAN capabilities.
-I didn't add the Gen3x2 PCIe1 port mainly because I don't have any device to test that with.
+Serdes, RX and PCS Misc tables had to be added, while TX and PCS tables
+were reused from SM8550, and PCS Lane1 was reused from SAR2130P.
+Despite this, all offsets and values match.
+
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
  drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 108 +++++++++++++++++++++++
  1 file changed, 108 insertions(+)

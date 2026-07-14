@@ -1,4 +1,4 @@
-From d21a99322f21511fc0f6b9825a4abc19d94cb975 Mon Sep 17 00:00:00 2001
+From 18b7bb4ccecb4be390fc63abee046119fd5f4fb1 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Mon, 6 Jul 2026 09:53:30 -0400
 Subject: [PATCH 3/3] arm64: dts: qcom: sm8450: Add mode-switch property to
@@ -14,7 +14,7 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index cf7c8f831fb0..e51babc1cf7a 100644
+index 7a2fb96bd2d9..2488928656d9 100644
 --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
 @@ -2654,6 +2654,7 @@ usb_1_qmpphy: phy@88e8000 {

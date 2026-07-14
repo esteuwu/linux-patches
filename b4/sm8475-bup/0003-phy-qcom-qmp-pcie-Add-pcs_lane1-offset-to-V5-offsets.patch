@@ -1,10 +1,14 @@
-From 46c8ea8bf79df2f5dfc3f69e356c3a27009c34ae Mon Sep 17 00:00:00 2001
+From 60a712f7c28011fdb4feb2d6579671de801742f4 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 21:36:56 -0400
-Subject: [PATCH 08/13] phy: qcom: qmp-pcie: Add pcs_lane1 offset to V5 offsets
+Subject: [PATCH 3/7] phy: qcom: qmp-pcie: Add pcs_lane1 offset to V5 offsets
 
-Some SoCs such as SM8475 write data to registers using this offset, specifically SW_CTRL2 and MX_CTRL2.
-Add pcs_lane1 offset to add these registers to init tables as defines and not just offsets.
+Some SoCs such as SM8475 write data to registers using this offset,
+specifically SW_CTRL2 and MX_CTRL2.
+Add pcs_lane1 offset to V5 offsets using the proper offset, otherwise these
+registers would be part of RX and would not be defined.
+
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
  drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 1 +
  1 file changed, 1 insertion(+)

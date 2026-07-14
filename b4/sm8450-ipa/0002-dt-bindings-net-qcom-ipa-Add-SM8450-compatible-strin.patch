@@ -1,4 +1,4 @@
-From 08f2e7ec541490bbdac5f74e3f25800757b87974 Mon Sep 17 00:00:00 2001
+From a3528a36dc5901c60dc3f3453fb26415e5bf1a43 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Thu, 11 Jun 2026 21:33:43 -0400
 Subject: [PATCH 2/4] dt-bindings: net: qcom,ipa: Add SM8450 compatible string

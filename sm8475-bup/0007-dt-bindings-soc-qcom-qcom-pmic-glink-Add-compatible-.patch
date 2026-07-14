@@ -1,7 +1,7 @@
-From 546d6f763c4787eac0c4e2fca74a3142bab6852b Mon Sep 17 00:00:00 2001
+From f807e0f268667d2795438cb329e3cd8f54c9ee95 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 23:08:21 -0400
-Subject: [PATCH 13/13] dt-bindings: soc: qcom: qcom,pmic-glink: Add compatible
+Subject: [PATCH 7/7] dt-bindings: soc: qcom: qcom,pmic-glink: Add compatible
  string for SM8475
 
 Given SM8475 takes things from both SM8450 and SM8550, add a different compatible string in case quirks specific to it are applied later on.

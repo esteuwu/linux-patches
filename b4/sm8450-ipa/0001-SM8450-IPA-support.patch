@@ -1,4 +1,4 @@
-From d5720da4c75a463854ee053fd5416db2da80e7b7 Mon Sep 17 00:00:00 2001
+From 610af2c2e20bbd5afaf9b12a3f42b56c6755285f Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Mon, 22 Jun 2026 21:25:02 -0400
 Subject: [PATCH 1/4] SM8450 IPA support
@@ -42,7 +42,6 @@ Changes in v2:
 - Link to v1: https://patch.msgid.link/20260622-sm8450-ipa-v1-0-532f0299f96e@proton.me
 
 --- b4-submit-tracking ---
-# This section is used internally by b4 prep for tracking purposes.
 {
   "series": {
     "revision": 2,

@@ -1,14 +1,19 @@
-From 8453859a55f00d8de1a0a2c928a18488eb15eb76 Mon Sep 17 00:00:00 2001
+From 21f78a60cdeea4c123e044d58dc1e23061d26eed Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sun, 17 May 2026 18:35:03 -0400
-Subject: [PATCH 06/13] phy: qcom: qmp-combo: Add serdes and RBR/HBR/HBR2/HBR3
+Subject: [PATCH 6/7] phy: qcom: qmp-combo: Add serdes and RBR/HBR/HBR2/HBR3
  tables for v1 DP PLLs
 
 These tables for v6 PHYs only cover PLL v1.1.
-For serdes, the difference between v1 and v1.1 is the value written to the BG_TIMER offset.
-This value is set to 0x0e for v1 PLLs and 0x0a for v1.1 PLLs. (SM8550, SM8650 use a v1.1 PLL)
+For serdes, the difference between v1 and v1.1 is the value written to the
+BG_TIMER offset.
+This value is set to 0x0e for v1 PLLs and 0x0a for v1.1 PLLs. (SM8550,
+SM8650 use a v1.1 PLL)
 For RBR/HBR/HBR2/HBR3, most values change.
-Add support for v1 DP PLLs to accomodate SM8475 support, since SM8475 uses a v1 PLL.
+Add support for v1 DP PLLs to accommodate SM8475 support, since SM8475 uses
+a v1 PLL.
+
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 161 ++++++++++++++++------
  1 file changed, 116 insertions(+), 45 deletions(-)

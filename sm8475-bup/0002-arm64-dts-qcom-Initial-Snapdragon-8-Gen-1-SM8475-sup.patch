@@ -1,7 +1,7 @@
-From 293dd725eea7aa42f92184e1b12c0ebb9457c963 Mon Sep 17 00:00:00 2001
+From b9662bb07f24f6c019af890aa47c8e318dcc156f Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 18:10:14 -0400
-Subject: [PATCH 01/13] arm64: dts: qcom: Initial Snapdragon 8+ Gen 1 (SM8475)
+Subject: [PATCH 2/7] arm64: dts: qcom: Initial Snapdragon 8+ Gen 1 (SM8475)
  support
 
 The Snapdragon 8+ Gen 1 SoC sits somewhere in between the SM8450 and the SM8550.

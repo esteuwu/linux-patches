@@ -1,10 +1,17 @@
-From c8973aab8c7b408ad0bea0f9ca4db7d6287965d0 Mon Sep 17 00:00:00 2001
+From e3daad2409e28c8f9384ecc0aab8b927b4a78c2c Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 02:54:18 -0400
-Subject: [PATCH 07/13] phy: qcom: qmp-combo: Add SM8475 support
+Subject: [PATCH 7/7] phy: qcom: qmp-combo: Add SM8475 support
 
-Finishing up this change took longer than I expected.
-Anyway, SS+ Gen2x1 works properly and so does DP out.
+Has been tested with the following capabilities:
+- USB Type-C at 10Gb/s
+- DP Alt Mode, using HBR2
+- USB Type-C at 480Mb/s + DP Alt Mode, using HBR2
+
+RX and PCS USB tables had to be added, while serdes, TX and PCS tables were
+reused from other SoCs.
+
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 98 +++++++++++++++++++++++
  1 file changed, 98 insertions(+)

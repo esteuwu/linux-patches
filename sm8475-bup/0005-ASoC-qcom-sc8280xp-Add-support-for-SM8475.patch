@@ -1,7 +1,7 @@
-From 1d6c0fc37dc3a54ff26b6f73f3e9c8aac2169b95 Mon Sep 17 00:00:00 2001
+From aed5adac1c5a93142413376a7a9ae0d93861cc40 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 21:09:04 -0400
-Subject: [PATCH 03/13] ASoC: qcom: sc8280xp: Add support for SM8475
+Subject: [PATCH 5/7] ASoC: qcom: sc8280xp: Add support for SM8475
 
 Add compatible string for devices using this SoC, this way firmware can be kept in one folder.
 ---

@@ -1,4 +1,4 @@
-From dec80777c3ede0c1761bd3f2c1a280c1c4043d7d Mon Sep 17 00:00:00 2001
+From 0d4605b0ed1f1279c4a2095aa0c60751f37f22bb Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 24 Jun 2026 22:03:35 -0400
 Subject: [PATCH 2/4] clk: qcom: dispcc-sm8450: Fix disp_cc_mdss_mdp_clk_src

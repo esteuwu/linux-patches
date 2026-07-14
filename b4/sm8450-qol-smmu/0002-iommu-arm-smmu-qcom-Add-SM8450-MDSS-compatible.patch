@@ -1,4 +1,4 @@
-From fffeeb21f6360ef636b79f33328ea4307f100eb9 Mon Sep 17 00:00:00 2001
+From 83f47c466604be00783e62f420c2f0896962c081 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 21:14:53 -0400
 Subject: [PATCH 2/2] iommu/arm-smmu-qcom: Add SM8450 MDSS compatible

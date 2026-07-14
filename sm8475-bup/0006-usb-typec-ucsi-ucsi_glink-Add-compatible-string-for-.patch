@@ -1,7 +1,7 @@
-From 2590b4793e429faf7fd07abf121026fc329d97b3 Mon Sep 17 00:00:00 2001
+From 5fb8d549a31e6b329303d1de6984fd3f9d7d87af Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 23:05:44 -0400
-Subject: [PATCH 12/13] usb: typec: ucsi: ucsi_glink: Add compatible string for
+Subject: [PATCH 6/7] usb: typec: ucsi: ucsi_glink: Add compatible string for
  SM8475
 
 Given SM8475 takes things from both SM8450 and SM8550, add a different compatible string in case quirks specific to it are applied later on.

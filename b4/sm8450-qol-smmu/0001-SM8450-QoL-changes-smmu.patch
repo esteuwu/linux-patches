@@ -1,4 +1,4 @@
-From f7a649388a49c6e3b75cc664aa0ebfd2b2528f91 Mon Sep 17 00:00:00 2001
+From bb68211e92bccd85373b121fb8c5db4099510999 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 11 Jul 2026 21:33:40 -0400
 Subject: [PATCH 1/2] SM8450 QoL changes (smmu)
@@ -28,7 +28,6 @@ Changes in v2:
 - Link to v1: https://patch.msgid.link/20260622-sm8450-qol-v1-0-37e2ee8df9da@proton.me
 
 --- b4-submit-tracking ---
-# This section is used internally by b4 prep for tracking purposes.
 {
   "series": {
     "revision": 3,

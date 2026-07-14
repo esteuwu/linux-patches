@@ -1,4 +1,4 @@
-From 8062a7d8ea06796f1077be0a11c9717717be89a2 Mon Sep 17 00:00:00 2001
+From fd54431553ad8872ec20bee439e40b90d6ce468b Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Fri, 12 Jun 2026 22:09:08 -0400
 Subject: [PATCH 2/3] arm64: dts: qcom: sm8450: Remove unneeded reserved memory
@@ -16,7 +16,7 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
  1 file changed, 15 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm8450.dtsi b/arch/arm64/boot/dts/qcom/sm8450.dtsi
-index 7ddd0f5f539c..cf7c8f831fb0 100644
+index 3797abcc1a58..7a2fb96bd2d9 100644
 --- a/arch/arm64/boot/dts/qcom/sm8450.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sm8450.dtsi
 @@ -752,11 +752,6 @@ oem_vm_mem: memory@bb000000 {

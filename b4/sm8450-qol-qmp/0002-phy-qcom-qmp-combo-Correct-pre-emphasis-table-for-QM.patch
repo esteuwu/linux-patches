@@ -1,4 +1,4 @@
-From ea2c0335f255fcc62e61ed0b36224a5071cb9276 Mon Sep 17 00:00:00 2001
+From 0dbe002745d11bd2e87d3ab90d3e969be4e9518d Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 00:10:35 -0400
 Subject: [PATCH 2/3] phy: qcom: qmp-combo: Correct pre-emphasis table for QMP
