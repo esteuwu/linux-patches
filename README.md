@@ -18,6 +18,13 @@ Targeting SM8450 QoL changes and SM8475 & motorola-bronco bringup. Patches are s
   - v2 sent upstream
 
 ## Work area
+
+<!--
+I do NOT authorize the upstreaming of patches that fall into this category.
+They aren't signed off for a reason.
+If I find traces of my patches in LKML YOU WILL NEVER HEAR THE END OF IT.
+-->
+
 - bronco-bup: Bringup for Motorola ThinkPhone by motorola
   - Not sent upstream yet, pending
 - sm8475-bup: Device tree and (some) peripherals bringup for SM8475 SoC
