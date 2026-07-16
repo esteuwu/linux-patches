@@ -1,0 +1,62 @@
+From 6675c40f00eefe18139e6093ff3100fd85921cbb Mon Sep 17 00:00:00 2001
+From: Esteban Urrutia <esteuwu@proton.me>
+Date: Tue, 14 Jul 2026 20:47:47 -0400
+Subject: [PATCH 2/5] Initial QMP USB PHY support for SM8475
+
+Based on the following patch:
+[1] https://lore.kernel.org/all/20260711-sm8450-qol-qmp-v2-2-d14353bd6ff4@proton.me/
+
+This series adds support for the QMP USB PHY found in the SM8475 SoC.
+The initialization sequence varies noticeably when compared to the one used
+in the SM8450 SoC, hence the need to add support for this PHY.
+
+To: Vinod Koul <vkoul@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-phy@lists.infradead.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: phone-devel@vger.kernel.org
+Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
+
+---
+Changes in v3:
+- EDITME: describe what is new in this series revision.
+- EDITME: use bulletpoints and terse descriptions.
+- Link to v2: https://patch.msgid.link/20260715-sm8475-bup-usbss-v2-0-2d8def39b190@proton.me
+
+Changes in v2:
+- Split series in subseries (pcie, usbss)
+  - Sorry, it should have been like this from the start!
+- Add notice about base commit
+  - Reason why calibrate_dp_phy is not present
+- Modify referenced swing and pre-emphasis tables
+- Move v1 PLL tables to SM8475 support patch
+  - Warnings are generated at build time otherwise
+- Link to v1: https://patch.msgid.link/20260714-sm8475-bup-v1-0-b2871be2b4ec@proton.me
+
+--- b4-submit-tracking ---
+# This section is used internally by b4 prep for tracking purposes.
+{
+  "series": {
+    "revision": 3,
+    "change-id": "20260714-sm8475-bup-usbss-e68349473f6e",
+    "prefixes": [],
+    "presubject": "",
+    "history": {
+      "v1": [
+        "20260714-sm8475-bup-v1-0-b2871be2b4ec@proton.me"
+      ],
+      "v2": [
+        "20260715-sm8475-bup-usbss-v2-0-2d8def39b190@proton.me"
+      ]
+    },
+    "prerequisites": []
+  }
+}
+-- 
+2.55.0
+

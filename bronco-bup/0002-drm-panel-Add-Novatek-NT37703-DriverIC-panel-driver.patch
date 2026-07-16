@@ -1,4 +1,4 @@
-From 8a2b7b6e65ed47582921b801b91e64735d0e5545 Mon Sep 17 00:00:00 2001
+From d6f9c4524d28498bac7e941715612b3103d2e8ae Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 15:23:42 -0400
 Subject: [PATCH 2/5] drm/panel: Add Novatek NT37703 DriverIC panel driver

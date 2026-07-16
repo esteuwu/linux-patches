@@ -1,4 +1,4 @@
-From 45a2468ce7b3130dd89e8060d6f9cf92446b24c7 Mon Sep 17 00:00:00 2001
+From 0dcccbbead4761ff068fa681a64cf950889d7429 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:25:58 -0400
 Subject: [PATCH 5/5] firmware: qcom: scm: Allow QSEECOM on ThinkPhone by
@@ -10,10 +10,10 @@ While this device doesn't have UEFI settings per se (therefore the uefisecapp TA
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index bfc5e6723eb9..6d0b20f9c3db 100644
+index f35f2ee39130..bc884ae4d8c5 100644
 --- a/drivers/firmware/qcom/qcom_scm.c
 +++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -2279,6 +2279,7 @@ static const struct of_device_id qcom_scm_qseecom_allowlist[] __maybe_unused = {
+@@ -2325,6 +2325,7 @@ static const struct of_device_id qcom_scm_qseecom_allowlist[] __maybe_unused = {
  	{ .compatible = "microsoft,denali", },
  	{ .compatible = "microsoft,romulus13", },
  	{ .compatible = "microsoft,romulus15", },

@@ -1,12 +1,12 @@
-From 332a5482a8b4ab0605a28f294bca104d083fdcff Mon Sep 17 00:00:00 2001
+From 671f6323abe77de514ab2cf2b257fc75674fc7f0 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 21:52:24 -0400
-Subject: [PATCH 2/7] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add SM8475
+Subject: [PATCH 2/4] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add SM8475
  QMP PHY
 
 SM8450 init sequence for this PHY varies significantly and can't be reused
 in SM8475.
-Add proper init sequence and bindings for the PHY found in this SoC.
+Add bindings for the PHY found in this SoC.
 
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---

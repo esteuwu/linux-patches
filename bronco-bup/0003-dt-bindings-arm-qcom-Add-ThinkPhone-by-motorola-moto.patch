@@ -1,4 +1,4 @@
-From a264006b9192a6f90e0b5d671013df8c4c5ac8fb Mon Sep 17 00:00:00 2001
+From 63261877370bdbda4553ffc0fb9fb7dbddb02a07 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 21:39:21 -0400
 Subject: [PATCH 3/5] dt-bindings: arm: qcom: Add ThinkPhone by motorola
@@ -11,10 +11,10 @@ Since this is the first device featuring this SoC, add qcom,sm8475 and qcom,sm84
  1 file changed, 6 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index bd184f062ec0..b61b7b897651 100644
+index c7c9a9279684..ccb8739ee1b9 100644
 --- a/Documentation/devicetree/bindings/arm/qcom.yaml
 +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -1123,6 +1123,12 @@ properties:
+@@ -1128,6 +1128,12 @@ properties:
                - sony,pdx224
            - const: qcom,sm8450
  

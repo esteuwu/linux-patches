@@ -1,12 +1,11 @@
-From 12a13af6db0ea7396b60ef46a9e20e68d3fd3657 Mon Sep 17 00:00:00 2001
+From ad5230bfe01416f44f3030d66c6f94fb2ab2bd56 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
-Date: Tue, 14 Jul 2026 01:37:39 -0400
-Subject: [PATCH 1/7] Initial PCIe0 and QMP USB PHYs support for SM8475
+Date: Tue, 14 Jul 2026 20:47:37 -0400
+Subject: [PATCH 1/4] Initial PCIe0 PHY support for SM8475
 
-This series adds support for both the PCIe0 and the QMP USB PHYs which
-can be found on the SM8475 SoC.
-The initialization sequences vary noticeably when compared to the ones
-used in the SM8450 SoC, hence the need to add support for these PHYs.
+This series adds support for the PCIe0 PHY found in the SM8475 SoC.
+The initialization sequence varies noticeably when compared to the one used
+in the SM8450 SoC, hence the need to add support for this PHY.
 
 To: Vinod Koul <vkoul@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>
@@ -21,24 +20,30 @@ Cc: phone-devel@vger.kernel.org
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 
 ---
-Changes in v2:
+Changes in v3:
 - EDITME: describe what is new in this series revision.
 - EDITME: use bulletpoints and terse descriptions.
+- Link to v2: https://patch.msgid.link/20260715-sm8475-bup-pcie-v2-0-48bd91a19abf@proton.me
+
+Changes in v2:
+- Split series in subseries (pcie, usbss)
+  - Sorry, it should have been like this from the start!
 - Link to v1: https://patch.msgid.link/20260714-sm8475-bup-v1-0-b2871be2b4ec@proton.me
-
-
 
 --- b4-submit-tracking ---
 # This section is used internally by b4 prep for tracking purposes.
 {
   "series": {
-    "revision": 2,
-    "change-id": "20260714-sm8475-bup-5c80d5f0b2ba",
+    "revision": 3,
+    "change-id": "20260714-sm8475-bup-pcie-3e3796e61c4e",
     "prefixes": [],
     "presubject": "",
     "history": {
       "v1": [
         "20260714-sm8475-bup-v1-0-b2871be2b4ec@proton.me"
+      ],
+      "v2": [
+        "20260715-sm8475-bup-pcie-v2-0-48bd91a19abf@proton.me"
       ]
     }
   }
