@@ -1,6 +1,11 @@
 # Linux kernel patches
 
-Targeting SM8450 QoL changes and SM8475 & motorola-bronco bringup. Patches are separated as follows:
+Focused on:
+- SM8450 QoL changes
+- SM8475 bringup
+- motorola-bronco bringup
+
+Patches are separated as follows:
 
 ## Accepted/Sent
 - accepted: Patches in [next](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/), will be checked when they arrive in [mainline](https://github.com/torvalds/linux)
@@ -31,7 +36,3 @@ If I find traces of my patches in LKML YOU WILL NEVER HEAR THE END OF IT.
   - Not sent upstream yet, pending
 - unsorted: Various patches for various things
   - Not sent upstream yet, pending
-
-Tested on 7.1.0-rc2 (mainline) and linux-next.
-
-Next may occasionally break; use mainline or stable instead.
