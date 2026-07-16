@@ -1,4 +1,4 @@
-From 28538d9134dc412a8e6d002c6124f28ead132a1d Mon Sep 17 00:00:00 2001
+From 75592df9df69ec78c303049f9f4ff58d857a6635 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Mon, 13 Jul 2026 18:24:10 -0400
 Subject: [PATCH 4/4] clk: qcom: alpha-pll: Check Lucid Ole PLL status before
@@ -9,6 +9,7 @@ glitches when the mdss driver takes over.
 This fixes the aforementioned issue.
 
 Fixes: 3132a9a11e57 ("clk: qcom: clk-alpha-pll: Add support for lucid ole pll configure")
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
  drivers/clk/qcom/clk-alpha-pll.c | 9 +++++++++
