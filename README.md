@@ -3,14 +3,11 @@
 Targeting SM8450 QoL changes and SM8475 & motorola-bronco bringup. Patches are separated as follows:
 
 ## Accepted/Sent
-- applied: Patches accepted into the kernel
-- ARCHIVED: Patches already present somewhere, will be checked when they arrive in [here](https://github.com/torvalds/linux)
+- accepted: Patches in [next](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/), will be checked when they arrive in [mainline](https://github.com/torvalds/linux)
 - b4/sm8450-ipa: Patches to get IPA (modem) working
   - v1 sent upstream, 0/3 reviewed
 - b4/sm8450-qol-dispcc: Patches to get a flickerless boot in SM8475
   - v3 sent upstream, 3/3 reviewed
-- b4/sm8450-qol-dts: Patches modifying the SM8450 devicetree
-  - v2 sent upstream, 2/2 reviewed
 - b4/sm8450-qol-qmp: Patches modifying phy-qcom-qmp-combo source code
   - v2 sent upstream, 1/2 reviewed
 - b4/sm8450-qol-smmu: Patches to allow mdss driver to work properly
