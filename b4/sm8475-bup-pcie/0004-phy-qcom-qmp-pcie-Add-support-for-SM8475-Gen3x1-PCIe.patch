@@ -1,4 +1,4 @@
-From 25918cf88cd86b91e86429ae1c112ee7b7d33799 Mon Sep 17 00:00:00 2001
+From 6ab89f9fed308e927125d48de07be9b391ec16de Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 21:41:02 -0400
 Subject: [PATCH 4/4] phy: qcom: qmp-pcie: Add support for SM8475 Gen3x1 PCIe0

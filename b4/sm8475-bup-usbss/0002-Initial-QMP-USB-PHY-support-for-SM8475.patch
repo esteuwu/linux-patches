@@ -1,4 +1,4 @@
-From 6675c40f00eefe18139e6093ff3100fd85921cbb Mon Sep 17 00:00:00 2001
+From 589386c7c9eccc4cb1c1c2dcafbcb639a4eeb29a Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 14 Jul 2026 20:47:47 -0400
 Subject: [PATCH 2/5] Initial QMP USB PHY support for SM8475

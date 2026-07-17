@@ -1,4 +1,4 @@
-From 12c5c0309c0be922a1695bbda5d3b22ffafeec53 Mon Sep 17 00:00:00 2001
+From 5d29ca762babd217ece3a984d69cabde97b30f44 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 02:08:18 -0400
 Subject: [PATCH 1/5] phy: qcom: qmp-combo: Drop qmp_v4_calibrate_dp_phy

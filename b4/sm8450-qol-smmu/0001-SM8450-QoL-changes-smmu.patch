@@ -1,4 +1,4 @@
-From ef7478e209c6d878b7dda83083d56ab8b5f3a056 Mon Sep 17 00:00:00 2001
+From 93d571b2985076d23b5d97a7c59849443a73351c Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 11 Jul 2026 21:33:40 -0400
 Subject: [PATCH 1/2] SM8450 QoL changes (smmu)

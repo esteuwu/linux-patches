@@ -1,4 +1,4 @@
-From 671f6323abe77de514ab2cf2b257fc75674fc7f0 Mon Sep 17 00:00:00 2001
+From 6b3eecd96b861dcb742618d3310944d36d9413c8 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 21:52:24 -0400
 Subject: [PATCH 2/4] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add SM8475

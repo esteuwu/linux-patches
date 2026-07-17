@@ -1,4 +1,4 @@
-From 19f0eae4d37fb36398ccb422de435f02c7471890 Mon Sep 17 00:00:00 2001
+From a7f93520b79173832e6a65f0593d83e10bc3b30f Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:47:16 -0400
 Subject: [PATCH 4/6] usb: typec: Add support for Parade PS5169 USB Type-C
@@ -12,8 +12,8 @@ When handling only DisplayPort, it can make use of up to four lanes (this depend
 ---
  drivers/usb/typec/mux/Kconfig  |  10 +
  drivers/usb/typec/mux/Makefile |   1 +
- drivers/usb/typec/mux/ps5169.c | 494 +++++++++++++++++++++++++++++++++
- 3 files changed, 505 insertions(+)
+ drivers/usb/typec/mux/ps5169.c | 513 +++++++++++++++++++++++++++++++++
+ 3 files changed, 524 insertions(+)
  create mode 100644 drivers/usb/typec/mux/ps5169.c
 
 diff --git a/drivers/usb/typec/mux/Kconfig b/drivers/usb/typec/mux/Kconfig
@@ -51,10 +51,10 @@ index b4f599eb5053..c775bfa12068 100644
  obj-$(CONFIG_TYPEC_MUX_TUSB1046)	+= tusb1046.o
 diff --git a/drivers/usb/typec/mux/ps5169.c b/drivers/usb/typec/mux/ps5169.c
 new file mode 100644
-index 000000000000..474ff6150145
+index 000000000000..88f2a91dcd99
 --- /dev/null
 +++ b/drivers/usb/typec/mux/ps5169.c
-@@ -0,0 +1,494 @@
+@@ -0,0 +1,513 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Driver for Parade PS5169 USB Type-C linear redriver
@@ -74,44 +74,42 @@ index 000000000000..474ff6150145
 +#include <linux/usb/typec_retimer.h>
 +
 +/* Useful constants */
-+#define PS5169_DP_EQ_REG_COUNT          2
-+#define PS5169_USB_RX_EQ_REG_COUNT      4
-+#define PS5169_USB_TX_EQ_REG_COUNT      3
++#define PS5169_DP_EQ_REG_COUNT       2
++#define PS5169_USB_RX_EQ_REG_COUNT   4
++#define PS5169_USB_TX_EQ_REG_COUNT   3
 +
-+#define PS5169_DP_EQ_LEVEL_COUNT        8
-+#define PS5169_USB_RX_EQ_LEVEL_COUNT    8
-+#define PS5169_USB_TX_EQ_LEVEL_COUNT    8
++#define PS5169_DP_EQ_LEVEL_COUNT     8
++#define PS5169_USB_RX_EQ_LEVEL_COUNT 8
++#define PS5169_USB_TX_EQ_LEVEL_COUNT 8
 +
 +/* PS5169 registers */
-+#define PS5169_CONFIG_REG               0x40
-+#define PS5169_GAIN_REG                 0x5c
-+#define PS5169_DP_GAIN_REG              PS5169_GAIN_REG
-+#define PS5169_USB_RX_GAIN_REG          PS5169_GAIN_REG
-+#define PS5169_USB_TX_GAIN_REG          PS5169_GAIN_REG
-+#define PS5169_AUX_CHANNEL_REG          0xa0
-+#define PS5169_HPD_LEVEL_REG            0xa1
-+#define PS5169_CHIP_ID_REG              0xac
-+#define PS5169_CHIP_REVISION_REG        0xae
-+#define PS5169_MAX_REG                  PS5169_CHIP_REVISION_REG
++#define PS5169_CONFIG_REG            0x40
++#define PS5169_GAIN_REG              0x5c
++#define PS5169_USB_RX1_LFPS_REG      0x8d
++#define PS5169_USB_RX2_LFPS_REG      0x90
++#define PS5169_AUX_CHANNEL_REG       0xa0
++#define PS5169_HPD_LEVEL_REG         0xa1
++#define PS5169_CHIP_ID_REG           0xac
++#define PS5169_CHIP_REVISION_REG     0xae
++#define PS5169_MAX_REG               PS5169_CHIP_REVISION_REG
 +
-+/* PS5169 masks */
-+#define PS5169_DP_GAIN_MASK             BIT(4)
-+#define PS5169_USB_RX_GAIN_MASK         BIT(2)
-+#define PS5169_USB_TX_GAIN_MASK         BIT(0)
++/* PS5169 register bits */
++#define PS5169_CONFIG_REVERSE        BIT(4)
++#define PS5169_CONFIG_DP_EN          BIT(5)
++#define PS5169_CONFIG_USB3_EN        BIT(6)
++#define PS5169_CONFIG_BASE           BIT(7)
++
++#define PS5169_GAIN_DP               BIT(4)
++#define PS5169_GAIN_USB_RX           BIT(2)
++#define PS5169_GAIN_USB_TX           BIT(0)
++
++#define PS5169_USB_RX_LFPS_50_OHM    BIT(0)
++
++#define PS5169_AUX_CHANNEL_BIT       BIT(1)
++#define PS5169_HPD_LEVEL_BIT         BIT(2)
 +
 +/* PS5169 register values */
-+#define PS5169_CONFIG_REVERSE           BIT(4)
-+#define PS5169_CONFIG_DP_EN             BIT(5)
-+#define PS5169_CONFIG_USB3_EN           BIT(6)
-+#define PS5169_CONFIG_BASE              BIT(7)
-+#define PS5169_DP_GAIN_MINUS_0_9_DB     PS5169_DP_GAIN_MASK
-+#define PS5169_USB_RX_GAIN_MINUS_0_9_DB PS5169_USB_RX_GAIN_MASK
-+#define PS5169_USB_TX_GAIN_MINUS_0_9_DB PS5169_USB_TX_GAIN_MASK
-+#define PS5169_AUX_CHANNEL_ENABLE       0x00
-+#define PS5169_AUX_CHANNEL_DISABLE      0x02
-+#define PS5169_HPD_LEVEL_LOW            0x00
-+#define PS5169_HPD_LEVEL_HIGH           0x04
-+#define PS5169_CHIP_ID                  0x6987
++#define PS5169_CHIP_ID               0x6987
 +
 +/* PS5169 register tables */
 +static const int ps5169_dp_eq_reg[PS5169_DP_EQ_REG_COUNT]          = {0x52, 0x5e};
@@ -176,6 +174,8 @@ index 000000000000..474ff6150145
 +	u8 usb_rx_eq;
 +	u8 usb_tx_eq;
 +
++	bool tune_lfps;
++
 +	struct mutex lock; /* protect non-concurrent retimer & switch */
 +
 +	unsigned int svid;
@@ -189,17 +189,34 @@ index 000000000000..474ff6150145
 +	.disable_locking = true,
 +};
 +
-+static void ps5169_write(struct regmap *map, unsigned int reg, unsigned int val)
++static void ps5169_write(struct redriver *ps5169, unsigned int reg, unsigned int val)
 +{
-+	regmap_write(map, reg, val);
++	regmap_write(ps5169->regmap, reg, val);
 +
 +	if (val & PS5169_CONFIG_DP_EN) {
-+		regmap_write(map, PS5169_AUX_CHANNEL_REG, PS5169_AUX_CHANNEL_ENABLE);
-+		regmap_write(map, PS5169_HPD_LEVEL_REG, PS5169_HPD_LEVEL_HIGH);
++		/* Clearing this bit will enable the AUX channel */
++		regmap_clear_bits(ps5169->regmap, PS5169_AUX_CHANNEL_REG, PS5169_AUX_CHANNEL_BIT);
++		/* Setting this bit will set a high HPD level */
++		regmap_set_bits(ps5169->regmap, PS5169_HPD_LEVEL_REG, PS5169_HPD_LEVEL_BIT);
 +	}
 +	else {
-+		regmap_write(map, PS5169_AUX_CHANNEL_REG, PS5169_AUX_CHANNEL_DISABLE);
-+		regmap_write(map, PS5169_HPD_LEVEL_REG, PS5169_HPD_LEVEL_LOW);
++		/* Setting this bit will disable the AUX channel */
++		regmap_set_bits(ps5169->regmap, PS5169_AUX_CHANNEL_REG, PS5169_AUX_CHANNEL_BIT);
++		/* Clearing this bit will set a low HPD level */
++		regmap_clear_bits(ps5169->regmap, PS5169_HPD_LEVEL_REG, PS5169_HPD_LEVEL_BIT);
++	}
++
++	if (ps5169->tune_lfps) {
++		if (val & PS5169_CONFIG_USB3_EN) {
++			/* Setting these bits will enable a 50 ohm termination on USB RX */
++			regmap_set_bits(ps5169->regmap, PS5169_USB_RX1_LFPS_REG, PS5169_USB_RX_LFPS_50_OHM);
++			regmap_set_bits(ps5169->regmap, PS5169_USB_RX2_LFPS_REG, PS5169_USB_RX_LFPS_50_OHM);
++		}
++		else {
++			/* Clearing these bits will disable a 50 ohm termination on USB RX */
++			regmap_clear_bits(ps5169->regmap, PS5169_USB_RX1_LFPS_REG, PS5169_USB_RX_LFPS_50_OHM);
++			regmap_clear_bits(ps5169->regmap, PS5169_USB_RX2_LFPS_REG, PS5169_USB_RX_LFPS_50_OHM);
++		}
 +	}
 +}
 +
@@ -210,7 +227,7 @@ index 000000000000..474ff6150145
 +
 +	switch (ps5169->mode) {
 +	case TYPEC_STATE_SAFE:
-+		ps5169_write(ps5169->regmap, PS5169_CONFIG_REG, val);
++		ps5169_write(ps5169, PS5169_CONFIG_REG, val);
 +
 +		return 0;
 +
@@ -218,7 +235,7 @@ index 000000000000..474ff6150145
 +		val |= PS5169_CONFIG_USB3_EN;
 +		if (reverse)
 +			val |= PS5169_CONFIG_REVERSE;
-+		ps5169_write(ps5169->regmap, PS5169_CONFIG_REG, val);
++		ps5169_write(ps5169, PS5169_CONFIG_REG, val);
 +
 +		return 0;
 +
@@ -235,7 +252,7 @@ index 000000000000..474ff6150145
 +		val |= PS5169_CONFIG_DP_EN;
 +		if (reverse)
 +			val |= PS5169_CONFIG_REVERSE;
-+		ps5169_write(ps5169->regmap, PS5169_CONFIG_REG, val);
++		ps5169_write(ps5169, PS5169_CONFIG_REG, val);
 +
 +		break;
 +
@@ -243,7 +260,7 @@ index 000000000000..474ff6150145
 +		val |= PS5169_CONFIG_DP_EN | PS5169_CONFIG_USB3_EN;
 +		if (reverse)
 +			val |= PS5169_CONFIG_REVERSE;
-+		ps5169_write(ps5169->regmap, PS5169_CONFIG_REG, val);
++		ps5169_write(ps5169, PS5169_CONFIG_REG, val);
 +
 +		break;
 +
@@ -482,20 +499,22 @@ index 000000000000..474ff6150145
 +
 +	ps5169_set_eq(ps5169);
 +
++	ps5169->tune_lfps = device_property_read_bool(dev, "parade,fine-tune-lfps-swing");
++
 +	/* DP gain */
 +	if (device_property_read_bool(dev, "parade,dp-set-gain"))
-+		/* If this property is present a -0.9 dB gain will be set on DP */
-+		regmap_update_bits(ps5169->regmap, PS5169_DP_GAIN_REG, PS5169_DP_GAIN_MASK, PS5169_DP_GAIN_MINUS_0_9_DB);
++		/* Setting this bit will set a -0.9 dB gain on DP */
++		regmap_set_bits(ps5169->regmap, PS5169_GAIN_REG, PS5169_GAIN_DP);
 +
 +	/* USB RX gain */
 +	if (device_property_read_bool(dev, "parade,usb-rx-set-gain"))
-+		/* If this property is present a -0.9 dB gain will be set on USB RX */
-+		regmap_update_bits(ps5169->regmap, PS5169_USB_RX_GAIN_REG, PS5169_USB_RX_GAIN_MASK, PS5169_USB_RX_GAIN_MINUS_0_9_DB);
++		/* Setting this bit will set a -0.9 dB gain on USB RX */
++		regmap_set_bits(ps5169->regmap, PS5169_GAIN_REG, PS5169_GAIN_USB_RX);
 +
 +	/* USB TX gain */
 +	if (device_property_read_bool(dev, "parade,usb-tx-set-gain"))
-+		/* If this property is present a -0.9 dB gain will be set on USB TX */
-+		regmap_update_bits(ps5169->regmap, PS5169_USB_TX_GAIN_REG, PS5169_USB_TX_GAIN_MASK, PS5169_USB_TX_GAIN_MINUS_0_9_DB);
++		/* Setting this bit will set a -0.9 dB gain on USB TX */
++		regmap_set_bits(ps5169->regmap, PS5169_GAIN_REG, PS5169_GAIN_USB_TX);
 +
 +	mutex_init(&ps5169->lock);
 +

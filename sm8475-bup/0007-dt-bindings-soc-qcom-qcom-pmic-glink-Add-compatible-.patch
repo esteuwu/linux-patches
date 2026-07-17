@@ -1,4 +1,4 @@
-From 867de54baabf35ce6566ea6742a8b06de07b9839 Mon Sep 17 00:00:00 2001
+From 91b6f92ed8a5240ab9128197c0a82b46ca442c00 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 23:08:21 -0400
 Subject: [PATCH 7/7] dt-bindings: soc: qcom: qcom,pmic-glink: Add compatible

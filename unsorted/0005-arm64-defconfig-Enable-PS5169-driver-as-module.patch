@@ -1,4 +1,4 @@
-From dd4fb280846e32bbead1e0cd0b9375191e6e0405 Mon Sep 17 00:00:00 2001
+From da5765d2aaca33396700638d3a5a0a3cd786eedc Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:58:31 -0400
 Subject: [PATCH 5/6] arm64: defconfig: Enable PS5169 driver as module

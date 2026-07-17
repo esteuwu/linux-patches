@@ -1,4 +1,4 @@
-From c3eeb937a4d046fe77bf215fb0e0fde62baf45e8 Mon Sep 17 00:00:00 2001
+From de512ec605f08203d8aeef0f816166e8d825e687 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sun, 31 May 2026 16:54:05 -0400
 Subject: [PATCH 4/5] arm64: defconfig: Add Novatek NT37703 DriverIC
