@@ -1,4 +1,4 @@
-From 7979b3731116fd0b559695cf8e943871963bcc6a Mon Sep 17 00:00:00 2001
+From ab9e3d25b58401e2e839940aa0e8956ffea2e7d9 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 15:23:42 -0400
 Subject: [PATCH 2/5] drm/panel: Add Novatek NT37703 DriverIC panel driver
@@ -8,8 +8,8 @@ Some details are pending, but it mostly works.
 ---
  drivers/gpu/drm/panel/Kconfig                 |  12 +
  drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-novatek-nt37703.c | 412 ++++++++++++++++++
- 3 files changed, 425 insertions(+)
+ drivers/gpu/drm/panel/panel-novatek-nt37703.c | 411 ++++++++++++++++++
+ 3 files changed, 424 insertions(+)
  create mode 100644 drivers/gpu/drm/panel/panel-novatek-nt37703.c
 
 diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
@@ -49,10 +49,10 @@ index 0f29f22f589e..a41ebcf7db03 100644
  obj-$(CONFIG_DRM_PANEL_MANTIX_MLAF057WE51) += panel-mantix-mlaf057we51.o
 diff --git a/drivers/gpu/drm/panel/panel-novatek-nt37703.c b/drivers/gpu/drm/panel/panel-novatek-nt37703.c
 new file mode 100644
-index 000000000000..5f3b5c87c56e
+index 000000000000..4c875807f9a4
 --- /dev/null
 +++ b/drivers/gpu/drm/panel/panel-novatek-nt37703.c
-@@ -0,0 +1,412 @@
+@@ -0,0 +1,411 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Novatek NT37703 DriverIC panels driver
@@ -258,7 +258,6 @@ index 000000000000..5f3b5c87c56e
 +	},
 +};
 +
-+/* TODO: Pass slice_per_pkt = 2 */
 +static struct drm_dsc_config bronco_tianma_dsc_cfg = {
 +	.dsc_version_major = 1,
 +	.dsc_version_minor = 1,
@@ -286,7 +285,7 @@ index 000000000000..5f3b5c87c56e
 +	.height_mm = 152,
 +	.lanes = 4,
 +	.format = MIPI_DSI_FMT_RGB101010,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM,
++	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET | MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT,
 +	.init_sequence = bronco_tianma_v2_init_sequence,
 +	.dsc_cfg = &bronco_tianma_dsc_cfg,
 +	.supplies = bronco_tianma_supplies,
