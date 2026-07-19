@@ -1,4 +1,4 @@
-From 2ebbcdb0bfbaf32567b1fcaa06b4c7ef4765c072 Mon Sep 17 00:00:00 2001
+From bf98a2a03b67ef15608417bb17349f85092d4851 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Fri, 10 Jul 2026 17:00:21 -0400
 Subject: [PATCH 6/6] usb: typec: class: Also configure retimers in

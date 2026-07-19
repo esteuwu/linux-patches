@@ -1,4 +1,4 @@
-From a7e66fffc4ecfc7010507b678e259677f2d7040d Mon Sep 17 00:00:00 2001
+From 5b66076e0065c3b71ea5a3fdcc4dc242b53acb40 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Mon, 22 Jun 2026 21:25:02 -0400
 Subject: [PATCH 1/4] SM8450 IPA support

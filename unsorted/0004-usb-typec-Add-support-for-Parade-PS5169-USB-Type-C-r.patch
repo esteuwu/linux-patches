@@ -1,4 +1,4 @@
-From a7f93520b79173832e6a65f0593d83e10bc3b30f Mon Sep 17 00:00:00 2001
+From 6aac380e65d21c8ee992cc930632619a8b6f5981 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:47:16 -0400
 Subject: [PATCH 4/6] usb: typec: Add support for Parade PS5169 USB Type-C
@@ -12,8 +12,8 @@ When handling only DisplayPort, it can make use of up to four lanes (this depend
 ---
  drivers/usb/typec/mux/Kconfig  |  10 +
  drivers/usb/typec/mux/Makefile |   1 +
- drivers/usb/typec/mux/ps5169.c | 513 +++++++++++++++++++++++++++++++++
- 3 files changed, 524 insertions(+)
+ drivers/usb/typec/mux/ps5169.c | 511 +++++++++++++++++++++++++++++++++
+ 3 files changed, 522 insertions(+)
  create mode 100644 drivers/usb/typec/mux/ps5169.c
 
 diff --git a/drivers/usb/typec/mux/Kconfig b/drivers/usb/typec/mux/Kconfig
@@ -51,14 +51,14 @@ index b4f599eb5053..c775bfa12068 100644
  obj-$(CONFIG_TYPEC_MUX_TUSB1046)	+= tusb1046.o
 diff --git a/drivers/usb/typec/mux/ps5169.c b/drivers/usb/typec/mux/ps5169.c
 new file mode 100644
-index 000000000000..88f2a91dcd99
+index 000000000000..c4e4f81a042d
 --- /dev/null
 +++ b/drivers/usb/typec/mux/ps5169.c
-@@ -0,0 +1,513 @@
+@@ -0,0 +1,511 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Driver for Parade PS5169 USB Type-C linear redriver
-+ * Based on downstream drivers
++ * Registers and bits decoded from downstream drivers
 + *
 + * Copyright (c) 2026 Esteban Urrutia <esteuwu@proton.me>
 + */
@@ -175,6 +175,10 @@ index 000000000000..88f2a91dcd99
 +	u8 usb_tx_eq;
 +
 +	bool tune_lfps;
++
++	bool dp_set_gain;
++	bool usb_rx_set_gain;
++	bool usb_tx_set_gain;
 +
 +	struct mutex lock; /* protect non-concurrent retimer & switch */
 +
@@ -324,7 +328,7 @@ index 000000000000..88f2a91dcd99
 +	return typec_mux_set(ps5169->typec_mux, &mux_state);
 +}
 +
-+static void ps5169_set_eq(struct redriver *ps5169)
++static void ps5169_init(struct redriver *ps5169)
 +{
 +	int i;
 +
@@ -342,6 +346,11 @@ index 000000000000..88f2a91dcd99
 +	if (ps5169->usb_tx_eq != U8_MAX)
 +		for (i = 0; i < PS5169_USB_TX_EQ_REG_COUNT; i++)
 +			regmap_update_bits(ps5169->regmap, ps5169_usb_tx_eq_reg[i], ps5169_usb_tx_eq_mask[i], ps5169_usb_tx_eq[ps5169->usb_tx_eq][i]);
++
++	/* If these bits are assigned a -0.9 dB gain will be set on the corresponding equalizer channels */
++	regmap_assign_bits(ps5169->regmap, PS5169_GAIN_REG, PS5169_GAIN_DP, ps5169->dp_set_gain);
++	regmap_assign_bits(ps5169->regmap, PS5169_GAIN_REG, PS5169_GAIN_USB_RX, ps5169->usb_rx_set_gain);
++	regmap_assign_bits(ps5169->regmap, PS5169_GAIN_REG, PS5169_GAIN_USB_TX, ps5169->usb_tx_set_gain);
 +}
 +
 +static int ps5169_probe(struct i2c_client *client)
@@ -497,24 +506,13 @@ index 000000000000..88f2a91dcd99
 +		ps5169->usb_tx_eq = U8_MAX;
 +	}
 +
-+	ps5169_set_eq(ps5169);
-+
++	/* Read properties from DT */
 +	ps5169->tune_lfps = device_property_read_bool(dev, "parade,fine-tune-lfps-swing");
++	ps5169->dp_set_gain = device_property_read_bool(dev, "parade,dp-set-gain");
++	ps5169->usb_rx_set_gain = device_property_read_bool(dev, "parade,usb-rx-set-gain");
++	ps5169->usb_tx_set_gain = device_property_read_bool(dev, "parade,usb-tx-set-gain");
 +
-+	/* DP gain */
-+	if (device_property_read_bool(dev, "parade,dp-set-gain"))
-+		/* Setting this bit will set a -0.9 dB gain on DP */
-+		regmap_set_bits(ps5169->regmap, PS5169_GAIN_REG, PS5169_GAIN_DP);
-+
-+	/* USB RX gain */
-+	if (device_property_read_bool(dev, "parade,usb-rx-set-gain"))
-+		/* Setting this bit will set a -0.9 dB gain on USB RX */
-+		regmap_set_bits(ps5169->regmap, PS5169_GAIN_REG, PS5169_GAIN_USB_RX);
-+
-+	/* USB TX gain */
-+	if (device_property_read_bool(dev, "parade,usb-tx-set-gain"))
-+		/* Setting this bit will set a -0.9 dB gain on USB TX */
-+		regmap_set_bits(ps5169->regmap, PS5169_GAIN_REG, PS5169_GAIN_USB_TX);
++	ps5169_init(ps5169);
 +
 +	mutex_init(&ps5169->lock);
 +

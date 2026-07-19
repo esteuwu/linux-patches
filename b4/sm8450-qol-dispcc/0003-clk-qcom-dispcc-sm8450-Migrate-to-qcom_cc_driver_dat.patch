@@ -1,4 +1,4 @@
-From 18cee9d1c0d20ee3cc8eb080a958ced0a10d86d3 Mon Sep 17 00:00:00 2001
+From e453c6a47040ebf9f04a30afc3909fa11ad1f9c5 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 24 Jun 2026 22:57:40 -0400
 Subject: [PATCH 3/4] clk: qcom: dispcc-sm8450: Migrate to qcom_cc_driver_data

@@ -1,4 +1,4 @@
-From da1ff4a8d60110070316cb3add221e566bf5b48d Mon Sep 17 00:00:00 2001
+From 55d426b5b13df2e3d84c862959b09deb95c7eb88 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:25:58 -0400
 Subject: [PATCH 5/5] firmware: qcom: scm: Allow QSEECOM on ThinkPhone by

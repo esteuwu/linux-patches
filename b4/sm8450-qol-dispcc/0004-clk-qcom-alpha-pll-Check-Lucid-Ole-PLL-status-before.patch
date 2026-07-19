@@ -1,4 +1,4 @@
-From 217ed59dcb6989047b415770d5f3dd8bef4d0e6a Mon Sep 17 00:00:00 2001
+From e66ddf80b362a1ee2f5c743729d1bc5cc5876130 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Mon, 13 Jul 2026 18:24:10 -0400
 Subject: [PATCH 4/4] clk: qcom: alpha-pll: Check Lucid Ole PLL status before

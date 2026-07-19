@@ -1,4 +1,4 @@
-From 599d18ab0691a9c4e83063563b3c16d368d76ac8 Mon Sep 17 00:00:00 2001
+From c28d0768da6937893ae3956cd90fd0d2eae31954 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Thu, 28 May 2026 23:29:18 -0400
 Subject: [PATCH 4/7] ASoC: dt-bindings: qcom,sm8250: Add SM8475 sndcard

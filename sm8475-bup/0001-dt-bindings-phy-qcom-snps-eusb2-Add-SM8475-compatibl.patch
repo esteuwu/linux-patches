@@ -1,4 +1,4 @@
-From ff75cb3641b5db5ba7bdf17046c4252248bc537d Mon Sep 17 00:00:00 2001
+From 76dbbf8ad86558f524cca9232559ada29e1a3fe9 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Fri, 29 May 2026 01:32:37 -0400
 Subject: [PATCH 1/7] dt-bindings: phy: qcom,snps-eusb2: Add SM8475 compatible

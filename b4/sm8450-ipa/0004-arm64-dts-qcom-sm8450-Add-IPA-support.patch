@@ -1,4 +1,4 @@
-From aabd33c3293312b978b2a6502379d6d11376a17d Mon Sep 17 00:00:00 2001
+From c5b6f5793f4eddbfcbcb8c90942839751abad1f6 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Mon, 25 May 2026 22:54:03 -0400
 Subject: [PATCH 4/4] arm64: dts: qcom: sm8450: Add IPA support

@@ -1,4 +1,4 @@
-From 4a489fdb4e5d7536aca0b319af14a6e1412e1b9d Mon Sep 17 00:00:00 2001
+From d37f8368bb7ed55d0e017f0b96c2ddfdf1b36653 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 02:54:18 -0400
 Subject: [PATCH 5/5] phy: qcom: qmp-combo: Add SM8475 support
