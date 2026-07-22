@@ -1,4 +1,4 @@
-From 8a840448c191eec82272810798619d8a48f3b18e Mon Sep 17 00:00:00 2001
+From e42d3b1ec7cdad55e1bb1176105ff99acf42c1f8 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sun, 17 May 2026 18:35:03 -0400
 Subject: [PATCH 4/5] phy: qcom: qmp-combo: Specify PLL version in

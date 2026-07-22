@@ -1,4 +1,4 @@
-From 26306086a953d13a45e05a8f969fef50170c38c9 Mon Sep 17 00:00:00 2001
+From d07b9e4d75ad195ec1ac08c758498405e444a723 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 21:36:56 -0400
 Subject: [PATCH 3/4] phy: qcom: qmp-pcie: Add pcs_lane1 offset to V5 offsets
@@ -7,6 +7,8 @@ Some SoCs such as SM8475 write data to registers using this offset,
 specifically SW_CTRL2 and MX_CTRL2.
 Add pcs_lane1 offset to V5 offsets to support this.
 
+Fixes: 0fd0b31965b0 ("phy: qualcomm: qmp-pcie: add support for SAR2130P")
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
  drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 1 +
