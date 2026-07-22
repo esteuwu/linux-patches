@@ -18,9 +18,9 @@ Patches are separated as follows:
 - b4/sm8450-qol-smmu: Patches to allow mdss driver to work properly
   - v2 sent upstream, 1/1 reviewed
 - b4/sm8475-bup-pcie: Patches to bringup SM8475 PCIe0 PHY
-  - v2 sent upstream, 0/3 reviewed
+  - v2 sent upstream, 3/3 reviewed
 - b4/sm8475-bup-usbss: Patches to bringup SM8475 QMP USB PHY
-  - v2 sent upstream, 0/3 reviewed
+  - v2 sent upstream, 1/3 reviewed
 
 ## Work area
 
