@@ -1,4 +1,4 @@
-From 56da73cce74855221f6df19c1e54afb02ba99408 Mon Sep 17 00:00:00 2001
+From 32cb954974d3b8a7c46df07fc1ddf2819fdf8438 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:31:38 -0400
 Subject: [PATCH 1/6] dt-bindings: usb: fsa4480: Add compatible for WAS4780C

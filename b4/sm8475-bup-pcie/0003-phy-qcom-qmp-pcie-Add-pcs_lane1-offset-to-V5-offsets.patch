@@ -1,4 +1,4 @@
-From d07b9e4d75ad195ec1ac08c758498405e444a723 Mon Sep 17 00:00:00 2001
+From f68868a21498bd1340946bbe83496f09856ef047 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 21:36:56 -0400
 Subject: [PATCH 3/4] phy: qcom: qmp-pcie: Add pcs_lane1 offset to V5 offsets
@@ -15,10 +15,10 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-index d3effad7a074..3618812e84d5 100644
+index f4b25a7b1604..ae33259004e6 100644
 --- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
 +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-@@ -3554,6 +3554,7 @@ static const struct qmp_pcie_offsets qmp_pcie_offsets_v5 = {
+@@ -3934,6 +3934,7 @@ static const struct qmp_pcie_offsets qmp_pcie_offsets_v5 = {
  	.pcs_misc	= 0x0600,
  	.tx		= 0x0e00,
  	.rx		= 0x1000,

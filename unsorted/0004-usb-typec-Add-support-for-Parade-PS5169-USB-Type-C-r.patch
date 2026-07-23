@@ -1,4 +1,4 @@
-From 6aac380e65d21c8ee992cc930632619a8b6f5981 Mon Sep 17 00:00:00 2001
+From e2ab52122e9d4196a8f6ecd9753eb4d7ec8d3562 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:47:16 -0400
 Subject: [PATCH 4/6] usb: typec: Add support for Parade PS5169 USB Type-C

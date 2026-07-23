@@ -1,4 +1,4 @@
-From eab4b069b92c537441b413ee55e2a29f64e328aa Mon Sep 17 00:00:00 2001
+From 84b3bcfb9f87f71dbf924fa6b9d368c7f211edcb Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 14 Jul 2026 20:47:37 -0400
 Subject: [PATCH 1/4] Initial PCIe0 PHY support for SM8475

@@ -1,4 +1,4 @@
-From 1812d999a499570d19c6db26068e90192df94daf Mon Sep 17 00:00:00 2001
+From 361f5038e6c98827deb483a6c29e15e8a0dc240e Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 21:09:04 -0400
 Subject: [PATCH 5/7] ASoC: qcom: sc8280xp: Add support for SM8475

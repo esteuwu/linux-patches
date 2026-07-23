@@ -1,14 +1,14 @@
-From 49dcd8bde8d5f76bf79c95b7b7fdec6017706f58 Mon Sep 17 00:00:00 2001
+From 76b119cd11a2afda122a6e59ce95e2beef0cbb38 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 14 Jul 2026 20:47:47 -0400
-Subject: [PATCH 2/5] Initial QMP USB PHY support for SM8475
+Subject: [PATCH 2/4] Initial QMP USB PHY support for SM8475
 
 Based on the following patch:
 [1] https://lore.kernel.org/all/20260711-sm8450-qol-qmp-v2-2-d14353bd6ff4@proton.me/
 
 This series adds support for the QMP USB PHY found in the SM8475 SoC.
-The initialization sequence varies noticeably when compared to the one used
-in the SM8450 SoC, hence the need to add support for this PHY.
+The initialization sequence varies noticeably when compared to the one
+used in the SM8450 SoC, hence the need to add support for this PHY.
 
 To: Vinod Koul <vkoul@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>
@@ -23,9 +23,15 @@ Cc: phone-devel@vger.kernel.org
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 
 ---
-Changes in v3:
+Changes in v4:
 - EDITME: describe what is new in this series revision.
 - EDITME: use bulletpoints and terse descriptions.
+- Link to v3: https://patch.msgid.link/20260722-sm8475-bup-usbss-v3-0-0dd5da218ab2@proton.me
+
+Changes in v3:
+- Apply suggestions from Dmitry
+- Drop PLL version patch
+  - Explain the situation instead of renaming the structs
 - Link to v2: https://patch.msgid.link/20260715-sm8475-bup-usbss-v2-0-2d8def39b190@proton.me
 
 Changes in v2:
@@ -42,7 +48,7 @@ Changes in v2:
 # This section is used internally by b4 prep for tracking purposes.
 {
   "series": {
-    "revision": 3,
+    "revision": 4,
     "change-id": "20260714-sm8475-bup-usbss-e68349473f6e",
     "prefixes": [],
     "presubject": "",
@@ -52,6 +58,9 @@ Changes in v2:
       ],
       "v2": [
         "20260715-sm8475-bup-usbss-v2-0-2d8def39b190@proton.me"
+      ],
+      "v3": [
+        "20260722-sm8475-bup-usbss-v3-0-0dd5da218ab2@proton.me"
       ]
     },
     "prerequisites": []

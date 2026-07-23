@@ -1,4 +1,4 @@
-From 674abbb73fd1c30485ba344761d072c984ff72a8 Mon Sep 17 00:00:00 2001
+From 321ccad51b07d0e40640d63ab4583db64b65f3f2 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 21:41:02 -0400
 Subject: [PATCH 4/4] phy: qcom: qmp-pcie: Add support for SM8475 Gen3x1 PCIe0
@@ -15,10 +15,10 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
  1 file changed, 108 insertions(+)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-index 3618812e84d5..47d7196460ee 100644
+index ae33259004e6..041d548f9afb 100644
 --- a/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
 +++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcie.c
-@@ -2454,6 +2454,82 @@ static const struct qmp_phy_init_tbl sm8450_qmp_gen4x2_pcie_ep_pcs_misc_tbl[] =
+@@ -2553,6 +2553,82 @@ static const struct qmp_phy_init_tbl sm8450_qmp_gen4x2_pcie_ep_pcs_misc_tbl[] =
  	QMP_PHY_INIT_CFG(QPHY_V5_20_PCS_PCIE_OSC_DTCT_MODE2_CONFIG5, 0x08),
  };
  
@@ -101,7 +101,7 @@ index 3618812e84d5..47d7196460ee 100644
  static const struct qmp_phy_init_tbl sm8550_qmp_gen3x2_pcie_serdes_tbl[] = {
  	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SSC_EN_CENTER, 0x01),
  	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SSC_PER1, 0x62),
-@@ -4406,6 +4482,35 @@ static const struct qmp_phy_cfg sm8450_qmp_gen4x2_pciephy_cfg = {
+@@ -4847,6 +4923,35 @@ static const struct qmp_phy_cfg sm8450_qmp_gen4x2_pciephy_cfg = {
  	.aux_clock_rate		= 20000000,
  };
  
@@ -137,7 +137,7 @@ index 3618812e84d5..47d7196460ee 100644
  static const struct qmp_phy_cfg sm8550_qmp_gen3x2_pciephy_cfg = {
  	.lanes = 2,
  
-@@ -5631,6 +5736,9 @@ static const struct of_device_id qmp_pcie_of_match_table[] = {
+@@ -6146,6 +6251,9 @@ static const struct of_device_id qmp_pcie_of_match_table[] = {
  	}, {
  		.compatible = "qcom,sm8450-qmp-gen4x2-pcie-phy",
  		.data = &sm8450_qmp_gen4x2_pciephy_cfg,

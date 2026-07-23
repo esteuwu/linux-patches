@@ -1,4 +1,4 @@
-From 952640212ae45b09b68b5a602564b211065316e3 Mon Sep 17 00:00:00 2001
+From c453f5911434f21fede3f1152c083291d307c4b0 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 13:19:20 -0400
 Subject: [PATCH 1/5] arm64: dts: qcom: Initial support for Motorola ThinkPhone
@@ -52,7 +52,7 @@ index e05414290d8e..5adee233b49e 100644
  sm8550-hdk-display-card-rear-camera-card-dtbs	:= sm8550-hdk.dtb sm8550-hdk-display-card.dtbo sm8550-hdk-rear-camera-card.dtbo
 diff --git a/arch/arm64/boot/dts/qcom/sm8475-motorola-bronco.dts b/arch/arm64/boot/dts/qcom/sm8475-motorola-bronco.dts
 new file mode 100644
-index 000000000000..be43a3fbd9ca
+index 000000000000..c38432a9259f
 --- /dev/null
 +++ b/arch/arm64/boot/dts/qcom/sm8475-motorola-bronco.dts
 @@ -0,0 +1,1460 @@
@@ -1455,7 +1455,7 @@ index 000000000000..be43a3fbd9ca
 +		vddbtcmx-supply = <&vreg_pmu_btcmx_0p8>;
 +		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
 +		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
-+		vddrfa1p8-supply = <&vreg_pmu_rfa_1p7>;
++		vddrfa1p7-supply = <&vreg_pmu_rfa_1p7>;
 +		vddrfacmn-supply = <&vreg_pmu_rfa_cmn_0p8>;
 +		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
 +		vddwlmx-supply = <&vreg_pmu_wlmx_0p8>;

@@ -1,4 +1,4 @@
-From ce131f41c9ce81a21f54dec6089727640bee1077 Mon Sep 17 00:00:00 2001
+From e234f28df25a9e4af0b00e6a7f44fa4a61973927 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:58:31 -0400
 Subject: [PATCH 5/6] arm64: defconfig: Enable PS5169 driver as module
@@ -10,10 +10,10 @@ Enable it as a module.
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index 91a3b2cd10b3..b40f6ebfe4d0 100644
+index 6ec8d3a69c98..331cf3a967c7 100644
 --- a/arch/arm64/configs/defconfig
 +++ b/arch/arm64/configs/defconfig
-@@ -1265,6 +1265,7 @@ CONFIG_TYPEC_MUX_FSA4480=m
+@@ -1269,6 +1269,7 @@ CONFIG_TYPEC_MUX_FSA4480=m
  CONFIG_TYPEC_MUX_GPIO_SBU=m
  CONFIG_TYPEC_MUX_IT5205=m
  CONFIG_TYPEC_MUX_NB7VPQ904M=m

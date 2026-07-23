@@ -1,4 +1,4 @@
-From 97a0c3dc94c90b9525bd2512642625ed4b65a89f Mon Sep 17 00:00:00 2001
+From 392a547be75148ac8f0c2695b1a3f9b4db775af4 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 21:52:24 -0400
 Subject: [PATCH 2/4] dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add SM8475
@@ -15,10 +15,10 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
  1 file changed, 2 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-index 108cf9dc86ea..8850d5ebac03 100644
+index 259ed9678393..b353b7bfb839 100644
 --- a/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
 +++ b/Documentation/devicetree/bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml
-@@ -43,6 +43,7 @@ properties:
+@@ -45,6 +45,7 @@ properties:
        - qcom,sm8350-qmp-gen3x2-pcie-phy
        - qcom,sm8450-qmp-gen3x1-pcie-phy
        - qcom,sm8450-qmp-gen4x2-pcie-phy
@@ -26,7 +26,7 @@ index 108cf9dc86ea..8850d5ebac03 100644
        - qcom,sm8550-qmp-gen3x2-pcie-phy
        - qcom,sm8550-qmp-gen4x2-pcie-phy
        - qcom,sm8650-qmp-gen3x2-pcie-phy
-@@ -175,6 +176,7 @@ allOf:
+@@ -177,6 +178,7 @@ allOf:
                - qcom,sm8350-qmp-gen3x2-pcie-phy
                - qcom,sm8450-qmp-gen3x1-pcie-phy
                - qcom,sm8450-qmp-gen3x2-pcie-phy

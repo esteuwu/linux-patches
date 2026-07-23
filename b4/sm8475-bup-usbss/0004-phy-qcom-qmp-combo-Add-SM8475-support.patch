@@ -1,7 +1,7 @@
-From 118de7cfbe623c8c47999f949f86b489963a2d99 Mon Sep 17 00:00:00 2001
+From 94e03fb7d01034a2aed084b1df4931a4e3a1a3fc Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Tue, 19 May 2026 02:54:18 -0400
-Subject: [PATCH 5/5] phy: qcom: qmp-combo: Add SM8475 support
+Subject: [PATCH 4/4] phy: qcom: qmp-combo: Add SM8475 support
 
 Has been tested with the following capabilities:
 - USB Type-C at 10Gb/s
@@ -10,7 +10,12 @@ Has been tested with the following capabilities:
 
 RX and PCS USB tables had to be added, while serdes, TX and PCS tables were
 reused from other SoCs.
-Since SM8475 uses a v1 PLL, add and use v1 PLL tables as well.
+
+Some SoCs such as SAR2130P, SM7550, SM7635 and SM8475 use 4nm-v1 PLLs.
+For SM8475, trying to use qmp_v6_dp_serdes_tbl structs (which are for
+4nm-v1.1 PLLs) causes link training to fail because of ref clock
+differences, which in turn makes these structs differ.
+Add structs for v1 PLLs as well.
 
 Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
 ---
@@ -18,7 +23,7 @@ Signed-off-by: Esteban Urrutia <esteuwu@proton.me>
  1 file changed, 169 insertions(+)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index 36361ac02855..6028752aaac1 100644
+index 9bd666ac2c49..8b46f36bd24c 100644
 --- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
 +++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
 @@ -1063,6 +1063,55 @@ static const struct qmp_phy_init_tbl sm8350_usb3_pcs_usb_tbl[] = {
@@ -104,7 +109,7 @@ index 36361ac02855..6028752aaac1 100644
 +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_CORE_CLK_EN, 0x0f),
 +};
 +
- static const struct qmp_phy_init_tbl qmp_v6_dp_v1_1_serdes_tbl[] = {
+ static const struct qmp_phy_init_tbl qmp_v6_dp_serdes_tbl[] = {
  	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SVS_MODE_CLK_SEL, 0x15),
  	QMP_PHY_INIT_CFG(QSERDES_V6_COM_SYSCLK_EN_SEL, 0x3b),
 @@ -1471,6 +1543,54 @@ static const struct qmp_phy_init_tbl qmp_v8_n3p_dp_tx_tbl[] = {
@@ -159,7 +164,7 @@ index 36361ac02855..6028752aaac1 100644
 +	QMP_PHY_INIT_CFG(QSERDES_V6_COM_BIN_VCOCAL_CMP_CODE2_MODE0, 0x18),
 +};
 +
- static const struct qmp_phy_init_tbl qmp_v6_dp_v1_1_serdes_tbl_rbr[] = {
+ static const struct qmp_phy_init_tbl qmp_v6_dp_serdes_tbl_rbr[] = {
  	QMP_PHY_INIT_CFG(QSERDES_V6_COM_HSCLK_SEL_1, 0x05),
  	QMP_PHY_INIT_CFG(QSERDES_V6_COM_DEC_START_MODE0, 0x34),
 @@ -2838,6 +2958,51 @@ static const struct qmp_phy_cfg sm8350_usb3dpphy_cfg = {

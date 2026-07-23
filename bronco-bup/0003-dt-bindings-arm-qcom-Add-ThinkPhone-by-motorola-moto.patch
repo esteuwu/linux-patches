@@ -1,4 +1,4 @@
-From 82fc087b66eadc393eaeba72ee6699bb064d1d43 Mon Sep 17 00:00:00 2001
+From 7e8ddde163328c919e5b48d64af190e041402803 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 16 May 2026 21:39:21 -0400
 Subject: [PATCH 3/5] dt-bindings: arm: qcom: Add ThinkPhone by motorola

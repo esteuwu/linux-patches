@@ -1,4 +1,4 @@
-From 7d70e33e63132f91166e839173fd0d74df681a93 Mon Sep 17 00:00:00 2001
+From 7ba8e687caa985243ff4df479791b30c500c7109 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Sat, 13 Jun 2026 19:22:10 -0400
 Subject: [PATCH 3/4] net: ipa: Add IPA v5.1 data
@@ -538,10 +538,10 @@ index 3eb9dc2ce339..fe6f7d5bfe88 100644
  extern const struct ipa_data ipa_data_v5_5;
  
 diff --git a/drivers/net/ipa/ipa_main.c b/drivers/net/ipa/ipa_main.c
-index 788dd99af2a4..6c449032ae45 100644
+index 3cd9e44680e9..0dc819bd7903 100644
 --- a/drivers/net/ipa/ipa_main.c
 +++ b/drivers/net/ipa/ipa_main.c
-@@ -669,6 +669,10 @@ static const struct of_device_id ipa_match[] = {
+@@ -672,6 +672,10 @@ static const struct of_device_id ipa_match[] = {
  		.compatible	= "qcom,sdx65-ipa",
  		.data		= &ipa_data_v5_0,
  	},

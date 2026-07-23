@@ -1,4 +1,4 @@
-From d3e6288a599ec24c0efccff1c7d9afb0188a8006 Mon Sep 17 00:00:00 2001
+From 95a301e0e3f1954802d268241ad4684434329b55 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:37:26 -0400
 Subject: [PATCH 2/6] regulator: qcom-rpmh: Add support for PM8350B
