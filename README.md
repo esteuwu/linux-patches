@@ -9,6 +9,8 @@ Patches are separated as follows:
 
 ## Accepted/Sent
 - accepted: Patches in [next](https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/), will be checked when they arrive in [mainline](https://github.com/torvalds/linux)
+- b4/pm8350b-ldo: Patches for supporting the PM8350B LDO
+  - v1 sent upstream, 0/2 reviewed
 - b4/sm8450-ipa: Patches to get IPA (modem) working
   - v1 sent upstream, 0/3 reviewed
 - b4/sm8450-qol-dispcc: Patches to get a flickerless boot in SM8475
