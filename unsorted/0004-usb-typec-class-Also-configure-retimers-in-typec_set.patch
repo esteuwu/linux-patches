@@ -1,7 +1,7 @@
-From e5702ac5ef2e6f8d43ceea07e1fcac808830e805 Mon Sep 17 00:00:00 2001
+From 3008123cf2f6262e34045b5ff63f9835aef285d9 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Fri, 10 Jul 2026 17:00:21 -0400
-Subject: [PATCH 6/6] usb: typec: class: Also configure retimers in
+Subject: [PATCH 4/4] usb: typec: class: Also configure retimers in
  typec_set_mode()
 
 Some devices have both a mux and a retimer wired to the same port, in which a graph connection between SBU and the mux does exist, while the retimer may also need one.

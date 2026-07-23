@@ -1,7 +1,7 @@
-From e2ab52122e9d4196a8f6ecd9753eb4d7ec8d3562 Mon Sep 17 00:00:00 2001
+From c5bd88160a6c70b22869a2ffbbd569eec9912051 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:47:16 -0400
-Subject: [PATCH 4/6] usb: typec: Add support for Parade PS5169 USB Type-C
+Subject: [PATCH 2/4] usb: typec: Add support for Parade PS5169 USB Type-C
  redriver
 
 The Parade PS5169 is an USB Type-C linear redriver that can handle both 10Gb USB and a DisplayPort output at once.

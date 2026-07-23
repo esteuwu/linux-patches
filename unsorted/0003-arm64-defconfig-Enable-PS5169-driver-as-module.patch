@@ -1,7 +1,7 @@
-From e234f28df25a9e4af0b00e6a7f44fa4a61973927 Mon Sep 17 00:00:00 2001
+From 065c4641dc27328aa04641d42d45a48621cbeff9 Mon Sep 17 00:00:00 2001
 From: Esteban Urrutia <esteuwu@proton.me>
 Date: Wed, 1 Jul 2026 22:58:31 -0400
-Subject: [PATCH 5/6] arm64: defconfig: Enable PS5169 driver as module
+Subject: [PATCH 3/4] arm64: defconfig: Enable PS5169 driver as module
 
 This driver is used in motorola-bronco for redriving the USB Type-C port.
 Enable it as a module.
